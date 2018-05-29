@@ -120,11 +120,11 @@ endif
 call plug#begin('~/Elan_vim/plugged')
 Plug 'tpope/vim-sensible'
 "Plug 'ludovicchabant/vim-gutentags' "自动更新tags文件
-Plug 'w0rp/ale' "编辑文字的同时就帮你把潜在错误标注出来
-"Plug 'mhinz/vim-signify'
+"Plug 'w0rp/ale' "编辑文字的同时就帮你把潜在错误标注出来
+"Plug 'mhinz/vim-signify' "show differences with git, svn ...
 Plug 'Valloric/YouCompleteMe'
 Plug 'Yggdroot/LeaderF'
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-syntax'

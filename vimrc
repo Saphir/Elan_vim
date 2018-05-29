@@ -64,15 +64,15 @@ autocmd BufLeave *.h       mark H
 set shiftround
 
 "remember last update or view postion"
-" Only do this part when compiled with support for autocommands 
+" Only do this part when compiled with support for autocommands
 if has("autocmd")
-" In text files, always limit the width of text to 78 characters 
+" In text files, always limit the width of text to 78 characters
 autocmd BufRead *.txt set tw=78
-" When editing a file, always jump to the last cursor position 
+" When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
 \ if line("'\"") > 0 && line ("'\"") <= line("$") |
 \ exe "normal g'\"" |
-\ endif 
+\ endif
 endif
 
 let mapleader = ';'
@@ -101,11 +101,25 @@ map <leader>s :w<CR>
 imap <leader>s <ESC>:w<CR>i
 vmap <leader>s <ESC>:w<CR>v
 
-map <leader>n :set number!<CR>
-imap <leader>n <ESC>:set number!<CR>i
-vmap <leader>n <ESC>:set number!<CR>v
-
 map <leader>p :set paste!<CR>
+
+func! CleanBlankLine()
+    exec ':% s/\s\+$//'
+    exec ':noh'
+endfunc
+map <leader>c :call CleanBlankLine()<CR>
+
+function! NumberToggle()
+  if(&relativenumber)
+    set norelativenumber nonumber
+  elseif(&number)
+    set relativenumber
+  else
+    set number
+  endif
+  set number?
+endfunc
+nnoremap <F2> :call NumberToggle()<CR>
 
 " ======================================================================
 " https://github.com/junegunn/vim-plug
@@ -176,7 +190,7 @@ let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 
 "======================================================================
-" Valloric/YouCompleteMe 
+" Valloric/YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/Elan_vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
 "ctags
 let g:ycm_collect_identifiers_from_tags_files = 1
@@ -228,3 +242,4 @@ let g:Lf_NormalMap = {
 	\ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
 	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
 	\ }
+

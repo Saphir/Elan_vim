@@ -98,10 +98,13 @@ imap <leader>S <ESC>:wqa!<CR>
 vmap <leader>S <ESC>:wqa!<CR>
 
 map <leader>s :w<CR>
-imap <leader>s <ESC>:w<CR>i
+imap <leader>s <ESC>:w<CR>a
 vmap <leader>s <ESC>:w<CR>v
 
 map <leader>p :set paste!<CR>
+
+noremap <S-tab> :bp<CR>
+noremap <tab> :bn<CR>
 
 func! CleanBlankLine()
     exec ':% s/\s\+$//'

@@ -103,6 +103,8 @@ vmap <leader>s <ESC>:w<CR>v
 
 map <leader>p :set paste!<CR>
 
+imap <leader>i #include <><LEFT>
+
 noremap <S-tab> :bp<CR>
 noremap <tab> :bn<CR>
 
@@ -148,6 +150,7 @@ Plug 'kana/vim-textobj-syntax'
 Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 Plug 'sgur/vim-textobj-parameter'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'majutsushi/tagbar' " a class outline viewer for Vim
 call plug#end()
 
 " ======================================================================
@@ -246,3 +249,4 @@ let g:Lf_NormalMap = {
 	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
 	\ }
 
+nmap <F6> :TagbarToggle<CR>

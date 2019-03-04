@@ -37,7 +37,7 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 set wrap
 
-set laststatus=2
+set laststatus=1
 set showmatch
 
 set hlsearch
@@ -151,11 +151,15 @@ Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 Plug 'sgur/vim-textobj-parameter'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'majutsushi/tagbar' " a class outline viewer for Vim
+Plug 'scrooloose/nerdcommenter'
+Plug 'vim-scripts/MultipleSearch'
 call plug#end()
 
 " ======================================================================
 " ctags
 set tags=./tags;,tags
+let g:ctags_path='.tags;,tags'
+let g:ctags_statusline=1
 
 " ======================================================================
 " ludovicchabant/vim-gutentags
@@ -230,7 +234,6 @@ noremap <c-j> :LeaderfFunction!<cr>
 noremap <c-k> :LeaderfBuffer<cr>
 noremap <c-l> :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_WindowHeight = 0.30
@@ -243,10 +246,42 @@ let g:Lf_PreviewResult = {'Function':0}
 let g:Lf_NormalMap = {
 	\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
 	\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
-	\ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
-	\ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
-	\ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
-	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
-	\ }
+    \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+    \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+    \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+    \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+    \ }
 
 nmap <F6> :TagbarToggle<CR>
+
+set statusline =
+"set statusline +=%n.
+" File description
+set statusline +=%f\ %h%m%r%w
+" Filetype
+set statusline +=%y
+" Name of the current function (needs taglist.vim)
+"set statusline +=\ [Fun(%{Tlist_Get_Tagname_By_Line()})]
+" Name of the current function (needs tagbar.vim)
+set statusline +=\ %{tagbar#currenttag('%s','')}
+" Name of the current branch (needs fugitive.vim)
+"set statusline +=\ %{fugitive#statusline()}
+set statusline+=%#LineNr#
+set statusline+=%=
+set statusline+=%#CursorColumn#
+" Total number of lines in the file
+"set statusline +=%=%-10L
+" Line, column and percentage
+"set statusline +=%=%-14.(%l,%c%V%)\ %P
+" utf-8
+" set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+" [unix]
+" set statusline+=\[%{&fileformat}\]
+" Date of the last time the file was saved
+set statusline +=\ %{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))}
+" Percentage through file
+set statusline+=\ %l:%c
+set statusline+=\ (L:%L)
+set statusline+=\ %p%%
+set statusline+=\ 
+

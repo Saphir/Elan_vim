@@ -78,13 +78,6 @@ endif
 let mapleader = ';'
 let g:mapleader = ';'
 
-map <leader>h <HOME>
-imap <leader>h <HOME>
-vmap <leader>h <HOME>
-map <leader>l <END>
-imap <leader>l <END>
-vmap <leader>l <END>
-
 map <leader>q :qa<CR>
 imap <leader>q <ESC>:qa<CR>
 vmap <leader>q <ESC>:qa<CR>
@@ -142,7 +135,9 @@ Plug 'tpope/vim-sensible'
 "Plug 'w0rp/ale' "编辑文字的同时就帮你把潜在错误标注出来
 "Plug 'mhinz/vim-signify' "show differences with git, svn ...
 Plug 'Valloric/YouCompleteMe'
-Plug 'Yggdroot/LeaderF'
+"Plug 'Yggdroot/LeaderF'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-indent'
@@ -226,31 +221,35 @@ noremap <c-z> <NOP>
 
 "
 " Yggdroot/LeaderF
-let g:Lf_ShortcutF = '<c-p>'
-let g:Lf_ShortcutB = '<m-n>'
-noremap <leader>f :LeaderfFile<CR>
-noremap <c-n> :LeaderfMru<cr>
-noremap <c-j> :LeaderfFunction!<cr>
-noremap <c-k> :LeaderfBuffer<cr>
-noremap <c-l> :LeaderfTag<cr>
-let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = expand('~/Elan_vim/cache')
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1
-let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0}
+"let g:Lf_ShortcutF = '<c-p>'
+"let g:Lf_ShortcutB = '<m-n>'
+"noremap <leader>f :LeaderfFile<CR>
+"noremap <c-n> :LeaderfMru<cr>
+"noremap <c-j> :LeaderfFunction!<cr>
+"noremap <c-k> :LeaderfBuffer<cr>
+"noremap <c-l> :LeaderfTag<cr>
+"let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+"let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+"let g:Lf_WorkingDirectoryMode = 'Ac'
+"let g:Lf_WindowHeight = 0.30
+"let g:Lf_CacheDirectory = expand('~/Elan_vim/cache')
+"let g:Lf_ShowRelativePath = 0
+"let g:Lf_HideHelp = 1
+"let g:Lf_StlColorscheme = 'powerline'
+"let g:Lf_PreviewResult = {'Function':0}
 
-let g:Lf_NormalMap = {
-	\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-	\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
-    \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
-    \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
-    \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
-    \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
-    \ }
+" junegunn/fzf.vim
+noremap <leader>f :GFiles<cr>
+noremap <leader>b :Buffers<cr>
+
+"let g:Lf_NormalMap = {
+	"\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+	"\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+    "\ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+    "\ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+    "\ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+    "\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+"    \ }
 
 nmap <F6> :TagbarToggle<CR>
 

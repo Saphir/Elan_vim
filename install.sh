@@ -10,7 +10,7 @@ echo "[INFO] Make sure vim is 8.0+ with --enable-pythoninterp=yes compiled"
 
 cd $(dirname $(readlink -m $0))
 
-for i in vim vimrc bashrc bashrc_expand bashrc_function gitconfig
+for i in vim vimrc bashrc gitconfig
 do
     [ -e ~/.${i} ] && (mv ~/.${i} ~/.${i}.bak.$now || die "Fail to mv ~/.${i} ~/.${i}.bak.$now")
     if [[ ${i} == vim ]]

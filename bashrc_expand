@@ -1,0 +1,70 @@
+# Colors
+BLACK='\e[0;30m'
+DARKGRAY='\e[1;30m'
+BLUE='\e[0;34m'
+LIGHTBLUE='\e[1;34m'
+GREEN='\e[0;32m'
+LIGHTGREEN='\e[1;32m'
+CYAN='\e[0;36m'
+LIGHTCYAN='\e[1;36m'
+RED='\e[0;31m'
+LIGHTRED='\e[1;31m'
+PURPLE='\e[0;35m'
+LIGHTPURPLE='\e[1;35m'
+BROWN='\e[0;33m'
+YELLOW='\e[1;33m'
+LIGHTGRAY='\e[0;37m'
+WHITE='\e[1;37m'
+UNSETCOLOR='\e[m'
+
+if [ "$ZSH_VERSION" ]; then # zsh
+    export PS1=$'[zsh %F{yellow}%*%F{magenta}$(git_st) %F{green}%5~%f]\n\$ '
+elif [ "$BASH_VERSION" ]; then # bash
+    export PS1="[$YELLOW\t$UNSETCOLOR $LIGHTBLUE"'$(TZ=Asia/Shanghai date +%T)'"$LIGHTPURPLE"'$(git_st)'"$UNSETCOLOR \W]\n\$ "
+fi
+export HISTTIMEFORMAT='%F %T '
+export HISTSIZE=999
+export HISTIGNORE='pwd:ls'
+export CORPUSER='zhengh3'
+export CORPPASSWD='emh3IjE5ODgxMjU='
+
+alias vi="$(which vim)"
+alias rl='readlink -m'
+
+# virtualenv
+#export WORKON_HOME=/home/c4dev/venv
+#alias venv='. /usr/bin/virtualenvwrapper.sh'
+#. /usr/bin/virtualenvwrapper.sh
+
+# mail_subrun mail_to
+export MS_TO=Haowen.Zheng@emc.com
+
+# python
+PATH="/home/c4dev/python/python3.5/bin${PATH:+:${PATH}}"
+PATH="/home/c4dev/python/python3.6/bin${PATH:+:${PATH}}"
+
+# perl
+#PATH="/home/c4dev/ActivePerl-5.24/site/bin:/home/c4dev/ActivePerl-5.24/bin${PATH:+:${PATH}}"
+#MANPATH="/home/c4dev/ActivePerl-5.24/site/man:/home/c4dev/ActivePerl-5.24/man${MANPATH:+:${MANPATH}}"
+#PERLLIB="/home/c4dev/ActivePerl-5.24/site/lib:/home/c4dev/ActivePerl-5.24/lib${PERLLIB:+:${PERLLIB}}"
+
+# java
+export CLASSPATH=".;$JAVA_HOME/lib"
+export PATH
+#export MANPATH
+
+# go
+PATH="/usr/local/go/bin${PATH:+:${PATH}}"
+PATH="$HOME/go/bin${PATH:+:${PATH}}"
+
+# fasd https://github.com/clvv/fasd
+eval "$(fasd --init auto)"
+#alias f='fasd -f'          # 文件
+#alias d='fasd -d'        # 目录
+#alias a='fasd -a'        # 任意
+#alias s='fasd -si'       # 显示并选择
+#alias sd='fasd -sid'        # 选择目录
+#alias sf='fasd -sif'          # 选择文件
+#alias z='fasd_cd -d'       # 跳转至目录
+#alias zz='fasd_cd -d -i'  # 选择并跳转至目录
+

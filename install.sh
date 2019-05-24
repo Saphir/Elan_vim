@@ -11,7 +11,7 @@ if [ -e ~/.vim ]
 then
     die "Remove ~/.vim before this installation"
 fi
-if [ -e ~/.vim ]
+if [ -e ~/.vimrc ]
 then
     die "Remove ~/.vimrc before this installation"
 fi

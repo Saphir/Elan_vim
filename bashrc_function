@@ -1,0 +1,105 @@
+
+function git_st()
+{
+    var_git_st=$(git status -s -b -uno 2>&1)
+    if [[ $var_git_st =~ ^fatal ]]
+    then
+        echo ""
+    else
+        echo "$var_git_st" | sed -n '1s/^## \(.*\)/ (\1)/p'
+    fi
+    unset var_git_st
+}
+
+function s() # screen
+{
+    if [[ $# -eq 1 && ! $1 =~ ^-.* ]]
+    then
+        /home/c4dev/softwares/screen-4.6.2/screen -S $1 -t $1
+    else
+        /home/c4dev/softwares/screen-4.6.2/screen $@
+    fi
+}
+
+function _ps()
+{
+    if [[ $# -eq 0 ]]
+    then
+        ps axjf | less
+    else
+        ps "$@"
+    fi
+}
+alias ps='_ps'
+
+function ggg() {
+    if [ "$1" == "-h" -o "$1" == "--help" ]
+    then
+        cat << EOF
+Usage:
+    ${FUNCNAME[0]} c [-D NDEBUG] -- compile *.cxx *.hxx in current path
+    ${FUNCNAME[0]} e -- vi *.cxx *.hxx in current path
+EOF
+    return 1
+    fi
+    files=$(find * -maxdepth 0 -name "*.hxx" -o -name "*.cxx"|xargs)
+    cmd="g++ -std=c++11 ${@:+$@ }${files} -o a.out"
+    echo "[CMD] $cmd"
+    eval $cmd
+    [[ $? == 0 ]] && ./a.out
+}
+
+function gge() {
+    files=$(find * -maxdepth 0 -name "*.cxx" -o -name "*.hxx"|xargs)
+    vim $files
+}
+
+#function _mkdir_cd() {
+#    mkdir $@ && cd $1
+#}
+#alias mkdir='_mkdir_cd'
+
+function ctouch()
+{
+    dd if=/dev/urandom of=$1 bs=1M count=1 status=none
+}
+
+WPATHS=(\
+/home/c4dev/zhw/emc_zhengh3
+/home2/work_spaces
+/c4_working/git_workspace
+/c4site/SOBO/Public/zhengh3
+/home/c4dev/apache/htdocs/links
+/home2/work_spaces/AutoX_Git
+/c4_working/etwas_logs
+/home/c4dev/zhw/c++
+)
+function cdd()
+{
+    if [ -n "$1" ]
+    then
+        if [ -d "$1" ]
+        then
+            cd $1
+        else
+            echo ${WPATHS[$1-1]}
+            cd ${WPATHS[$1-1]}
+        fi
+    else
+        local n=1
+        for p in ${WPATHS[*]}
+        do
+            echo "$n. $p"
+            let n++
+        done
+        local num=0
+        while [[ $num -eq 0 || $num -gt ${#WPATHS[@]} ]]
+        do
+            echo -n "Dest: "
+            read num
+        done
+        cd ${WPATHS[$num-1]}
+    fi
+}
+
+

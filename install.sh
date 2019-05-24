@@ -5,18 +5,19 @@ function die() {
     exit 1
 }
 
+now=$(date +%F_%T)
 echo "[INFO] Make sure vim is 8.0+ with --enable-pythoninterp=yes compiled"
 
-if [ -e ~/.vim ]
-then
-    die "Remove ~/.vim before this installation"
-fi
-if [ -e ~/.vimrc ]
-then
-    die "Remove ~/.vimrc before this installation"
-fi
-
 cd $(dirname $(readlink -m $0))
-ln -s $(readlink -m .) ~/.vim || die "Fail to create symbolic link ~/.vim"
-ln -s $(readlink -m ./vimrc) ~/.vimrc || die "Fail to create symbolic link ~/.vimrc"
 
+for i in vim vimrc bashrc bashrc_expand bashrc_function gitconfig
+do
+    [ -e ~/.${i} ] && (mv ~/.${i} ~/.${i}.bak.$now || die "Fail to mv ~/.${i} ~/.${i}.bak.$now")
+    if [[ ${i} == vim ]]
+    then
+        ln -s $(readlink -m .) ~/.${i} || die "Fail to create symbolic link ~/.${i}"
+    else
+        ln -s $(readlink -m ./${i}) ~/.${i} || die "Fail to create symbolic link ~/.${i}"
+    fi
+    echo "~/.${i} Done"
+done

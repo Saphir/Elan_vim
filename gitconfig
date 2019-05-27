@@ -40,7 +40,7 @@
 [difftool]
     prompt = false
 [difftool "icdiff"]
-    cmd = /home/c4dev/python/python3.6/bin/icdiff --line-numbers $LOCAL $REMOTE
+    cmd = /home/c4dev/bin/icdiff --line-numbers $LOCAL $REMOTE
 [push]
 	default = simple
 [adsk "github"]

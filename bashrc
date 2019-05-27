@@ -33,3 +33,5 @@ bashrc_emc='/c4site/SOBO/Public/zhengh3/.bashrc_emc'
 real_bashrc=$(readlink -m ~/.bashrc)
 [[ -e ${real_bashrc%/*}/bashrc_function ]] && source ${real_bashrc%/*}/bashrc_function
 [[ -e ${real_bashrc%/*}/bashrc_expand ]] && source ${real_bashrc%/*}/bashrc_expand
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

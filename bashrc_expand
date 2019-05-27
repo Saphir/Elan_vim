@@ -31,6 +31,8 @@ export CORPPASSWD='emh3IjE5ODgxMjU='
 alias vi="$(which vim)"
 alias rl='readlink -m'
 
+PATH="/home/c4dev/bin${PATH:+:${PATH}}"
+
 # virtualenv
 #export WORKON_HOME=/home/c4dev/venv
 #alias venv='. /usr/bin/virtualenvwrapper.sh'
@@ -42,6 +44,7 @@ export MS_TO=Haowen.Zheng@emc.com
 # python
 PATH="/home/c4dev/python/python3.5/bin${PATH:+:${PATH}}"
 PATH="/home/c4dev/python/python3.6/bin${PATH:+:${PATH}}"
+PATH="/home/c4dev/python/python3.7/bin${PATH:+:${PATH}}"
 
 # perl
 #PATH="/home/c4dev/ActivePerl-5.24/site/bin:/home/c4dev/ActivePerl-5.24/bin${PATH:+:${PATH}}"

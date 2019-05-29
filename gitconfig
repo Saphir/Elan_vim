@@ -62,5 +62,3 @@
 	pushInsteadOf = git@github.com/Saphir/Elan_vim.git
 [init]
 	templatedir = /home/c4dev/.enterprise/template
-[credential]
-	helper = cache --timeout=86400

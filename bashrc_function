@@ -11,7 +11,7 @@ function git_st()
     unset var_git_st
 }
 
-function s() # screen
+function sss() # screen
 {
     if [[ $# -eq 1 && ! $1 =~ ^-.* ]]
     then

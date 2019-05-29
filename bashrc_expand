@@ -20,7 +20,8 @@ UNSETCOLOR='\e[m'
 if [ "$ZSH_VERSION" ]; then # zsh
     export PS1=$'[zsh %F{yellow}%*%F{magenta}$(git_st) %F{green}%5~%f]\n\$ '
 elif [ "$BASH_VERSION" ]; then # bash
-    export PS1="[$YELLOW\t$UNSETCOLOR $LIGHTBLUE"'$(TZ=Asia/Shanghai date +%T)'"$LIGHTPURPLE"'$(git_st)'"$UNSETCOLOR \W]\n\$ "
+    #export PS1="[$YELLOW\t$UNSETCOLOR $LIGHTBLUE"'$(TZ=Asia/Shanghai date +%T)'"$LIGHTPURPLE"'$(git_st)'"$UNSETCOLOR \W]\n\$ "
+    export PS1="[\h $YELLOW\t$UNSETCOLOR$LIGHTPURPLE"'$(git_st)'"$UNSETCOLOR \W]\n\$ "
 fi
 export HISTTIMEFORMAT='%F %T '
 export HISTSIZE=999
@@ -30,6 +31,7 @@ export CORPPASSWD='emh3IjE5ODgxMjU='
 
 alias vi="$(which vim)"
 alias rl='readlink -m'
+if which glances > /dev/null 2>&1; then alias top=$(which glances);fi
 
 PATH="/home/c4dev/bin${PATH:+:${PATH}}"
 

@@ -1,0 +1,4 @@
+# LD
+_fs_db64.exe readsb 40000007
+_fs_db64.exe readi 40000007 9426
+Lower Deck File System Id : 1073741831  --> 0x40000007

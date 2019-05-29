@@ -1,0 +1,9 @@
+# 将GDB中需要的调试信息输出到文件
+(gdb) set logging file <文件名>
+(gdb) set logging on
+(gdb) thread apply all bt
+  # (gdb) qbtall
+(gdb) set logging off
+(gdb) quit
+# Disable pagination
+set pagination off

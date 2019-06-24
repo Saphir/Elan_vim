@@ -27,7 +27,7 @@ export HISTTIMEFORMAT='%F %T '
 export HISTSIZE=999
 export HISTIGNORE='pwd:ls'
 export CORPUSER='zhengh3'
-export CORPPASSWD='emh3IjE5ODgxMjU='
+export CORPPASSWD='emh3PDE5ODgxMjU='
 
 alias vi="$(which vim)"
 alias rl='readlink -m'
@@ -73,3 +73,5 @@ eval "$(fasd --init auto)"
 #alias z='fasd_cd -d'       # 跳转至目录
 #alias zz='fasd_cd -d -i'  # 选择并跳转至目录
 
+#========================================================================
+alias gotosles15='ssh 10.244.101.35'

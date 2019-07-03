@@ -35,3 +35,5 @@ real_bashrc=$(readlink -m ~/.bashrc)
 [[ -e ${real_bashrc%/*}/bashrc_expand ]] && source ${real_bashrc%/*}/bashrc_expand
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+GIT_PS1_SHOWCOLORHINTS=1
+[[ $PS1 = *'>'* ]] && PROMPT_COMMAND="__git_ps1 '${PS1%>*}' '>${PS1##*>}'"

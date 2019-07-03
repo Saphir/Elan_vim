@@ -102,4 +102,19 @@ function cdd()
     fi
 }
 
-
+grepktrace ()
+{
+    rc=1
+        if [ -z "$1" ]; then
+            echo "Usage: grepc4log <pattern>";
+    return 1;
+    fi;
+    pattern="$@";
+    while read f; do
+        zgrep "${pattern}" $f;
+    lastrc="$?"
+        [ "$rc" -eq 0 ] || rc="$lastrc"
+        [ "$lastrc" -eq 0 ] && echo "<<< @ $f"
+        done < <(ls -rt c4_safe_ktrace.log*);
+    return "$rc"
+}

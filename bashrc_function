@@ -15,9 +15,9 @@ function sss() # screen
 {
     if [[ $# -eq 1 && ! $1 =~ ^-.* ]]
     then
-        /home/c4dev/softwares/screen-4.6.2/screen -S $1 -t $1
+        /usr/local/bin/screen-4.6.2 -S $1 -t $1
     else
-        /home/c4dev/softwares/screen-4.6.2/screen $@
+        /usr/local/bin/screen-4.6.2 $@
     fi
 }
 
@@ -53,7 +53,7 @@ Usage:
 EOF
     return 1
     fi
-    files=$(find * -maxdepth 0 -name "*.hxx" -o -name "*.cxx"|xargs)
+    files=$(find * -maxdepth 0 -name "*.hxx" -o -name "*.cxx" -o -name "*.hpp" -o -name "*.cpp" |xargs)
     cmd="g++ -std=c++11 ${@:+$@ }${files} -o a.out"
     echo "[CMD] $cmd"
     eval $cmd
@@ -61,7 +61,7 @@ EOF
 }
 
 function gge() {
-    files=$(find * -maxdepth 0 -name "*.cxx" -o -name "*.hxx"|xargs)
+    files=$(find * -maxdepth 0 -name "*.cxx" -o -name "*.hxx" -o -name "*.hpp" -o -name "*.cpp" |xargs)
     vim $files
 }
 

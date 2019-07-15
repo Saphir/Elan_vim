@@ -212,7 +212,7 @@ nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-noremap <c-z> <NOP>
+"noremap <c-z> <NOP>
 
 "let g:ycm_semantic_triggers =  {
 "           \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{3}'],

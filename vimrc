@@ -284,3 +284,8 @@ set statusline+=\ (L:%L)
 set statusline+=\ %p%%
 set statusline+=\ 
 
+if $TMUX != ''
+	set ttimeoutlen=20
+elseif &ttimeoutlen > 60 || &ttimeoutlen <= 0
+	set ttimeoutlen=60
+endif

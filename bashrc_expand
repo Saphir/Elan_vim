@@ -34,6 +34,7 @@ alias rl='readlink -m'
 if which glances > /dev/null 2>&1; then alias top=$(which glances);fi
 
 PATH="/home/c4dev/bin${PATH:+:${PATH}}"
+PATH="/home/c4dev/Program/bin${PATH:+:${PATH}}"
 
 # virtualenv
 #export WORKON_HOME=/home/c4dev/venv

@@ -31,7 +31,18 @@ export CORPPASSWD='emh3PDE5ODgxMjU='
 
 alias vi="$(which vim)"
 alias rl='readlink -m'
-if which glances > /dev/null 2>&1; then alias top=$(which glances);fi
+if which htop > /dev/null 2>&1; then alias top=$(which htop);fi
+
+# public IP
+defaultgwdev=$(ip route | grep default | awk '{print $5}')
+localnet=$(ip addr show dev $defaultgwdev | grep 'inet ' | awk '{print $2}')
+localip=$(echo $localnet | cut -d '/' -f 1)
+localnm=$(echo $localnet | cut -d '/' -f 2)
+localgw=$(ip route | grep default | awk '{print $3}')
+export _LOCALDEV=$defaultgwdev
+export _LOCALIP=$localip
+export _LOCALNM=$localnm
+export _LOCALGW=$localgw
 
 PATH="/home/c4dev/bin${PATH:+:${PATH}}"
 PATH="/home/c4dev/Program/bin${PATH:+:${PATH}}"
@@ -74,5 +85,7 @@ eval "$(fasd --init auto)"
 #alias z='fasd_cd -d'       # 跳转至目录
 #alias zz='fasd_cd -d -i'  # 选择并跳转至目录
 
+# cheat
+export CHEAT_USER_DIR=$(readlink -m ~/.bashrc|sed 's/bashrc/cheat/')
 #========================================================================
 alias gotosles15='ssh 10.244.101.35'

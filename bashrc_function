@@ -130,8 +130,7 @@ do
         echo "Starting python http server ..."
         python_http_server_links="${HOME}/HTTP.Server"
         [ ! -e "${python_http_server_links}" ] && mkdir -p ${python_http_server_links}
-    cd ${python_http_server_links}
-    nohup python3 -m http.server 8050 > /tmp/python.http.server.log 2>&1 &
+        (cd ${python_http_server_links};nohup python3 -m http.server 8050 > /tmp/python.http.server.log 2>&1 &)
         return 0
         ;;
     stop)

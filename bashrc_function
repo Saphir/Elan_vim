@@ -117,3 +117,43 @@ function getLocalIP()
     export _LOCALIP=$localip
     echo $localip
 }
+function httpServer()
+{
+cmd=$1
+while :
+do
+    case "$cmd" in
+    start)
+        if sudo lsof -i :8050 | grep 8050; then
+            return 0;
+        fi
+        echo "Starting python http server ..."
+        python_http_server_links="${HOME}/HTTP.Server"
+        [ ! -e "${python_http_server_links}" ] && mkdir -p ${python_http_server_links}
+    cd ${python_http_server_links}
+    nohup python3 -m http.server 8050 > /tmp/python.http.server.log 2>&1 &
+        return 0
+        ;;
+    stop)
+        echo "Stoping python http server ... "
+        sudo lsof -i :8050 | grep 8050
+        if [ "$?" -ne 0 ]; then
+            echo "python http service not running ..."
+        else
+            server_pid=$(sudo lsof -i :8050 | grep 8050 | awk '{print $2}')
+            [ -n "$server_pid" ] && sudo kill -9 ${server_pid}
+        fi
+        return 0
+        ;;
+    status)
+        sudo lsof -i :8050 | grep 8050
+        [ "$?" -ne 0 ] && echo "python http service not running ..."
+        return 0
+        ;;
+    *)
+        read -p "[start|stop|status]" cmd
+        ;;
+    esac
+done
+}
+

@@ -17,6 +17,9 @@ LIGHTGRAY='\e[0;37m'
 WHITE='\e[1;37m'
 UNSETCOLOR='\e[m'
 
+PATH="/home/c4dev/bin${PATH:+:${PATH}}"
+PATH="/home/c4dev/Program/bin${PATH:+:${PATH}}"
+
 if [ "$ZSH_VERSION" ]; then # zsh
     export PS1=$'[zsh %F{yellow}%*%F{magenta}$(git_st) %F{green}%5~%f]\n\$ '
 elif [ "$BASH_VERSION" ]; then # bash
@@ -31,6 +34,7 @@ export CORPPASSWD='emh3PDE5ODgxMjU='
 
 alias vi="$(which vim)"
 alias rl='readlink -m'
+alias g11='g++ -std=c++11'
 if which htop > /dev/null 2>&1; then alias top=$(which htop);fi
 
 # public IP
@@ -43,9 +47,6 @@ export _LOCALDEV=$defaultgwdev
 export _LOCALIP=$localip
 export _LOCALNM=$localnm
 export _LOCALGW=$localgw
-
-PATH="/home/c4dev/bin${PATH:+:${PATH}}"
-PATH="/home/c4dev/Program/bin${PATH:+:${PATH}}"
 
 # virtualenv
 #export WORKON_HOME=/home/c4dev/venv

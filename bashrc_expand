@@ -17,8 +17,8 @@ LIGHTGRAY='\e[0;37m'
 WHITE='\e[1;37m'
 UNSETCOLOR='\e[m'
 
-PATH="/home/c4dev/bin${PATH:+:${PATH}}"
-PATH="/home/c4dev/Program/bin${PATH:+:${PATH}}"
+PATH="/home/c4dev/bin:/home/c4dev/Program/bin${PATH:+:${PATH}}"
+LD_LIBRARY_PATH="/home/c4dev/python/python3.6/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
 if [ "$ZSH_VERSION" ]; then # zsh
     export PS1=$'[zsh %F{yellow}%*%F{magenta}$(git_st) %F{green}%5~%f]\n\$ '
@@ -68,7 +68,6 @@ PATH="/home/c4dev/python/python3.7/bin${PATH:+:${PATH}}"
 
 # java
 export CLASSPATH=".;$JAVA_HOME/lib"
-export PATH
 #export MANPATH
 
 # go
@@ -88,5 +87,6 @@ eval "$(fasd --init auto)"
 
 # cheat
 export CHEAT_USER_DIR=$(readlink -m ~/.bashrc|sed 's/bashrc/cheat/')
-#========================================================================
-alias gotosles15='ssh 10.244.101.35'
+
+export PATH
+export LD_LIBRARY_PATH

@@ -152,7 +152,7 @@ call plug#end()
 
 " ======================================================================
 " ctags
-set tags=./tags;,tags
+set tags=./.tags;,tags
 let g:ctags_path='.tags;,tags'
 let g:ctags_statusline=1
 
@@ -196,21 +196,40 @@ let g:ale_cpp_cppcheck_options = ''
 
 "======================================================================
 " Valloric/YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '~/Elan_vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
-"ctags
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 3
-let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion = '<c-z>'
-set completeopt=menu,menuone
+"let g:ycm_python_binary_path = '/usr/bin/python3'
+" C family Completion Path
+let g:ycm_global_ycm_extra_conf='~/Elan_vim/.ycm_extra_conf.py'
+" 跳转快捷键
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" 停止提示是否载入本地ycm_extra_conf文件
+let g:ycm_confirm_extra_conf = 0
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax = 1
+" 开启 YCM 基于标签引擎
+let g:ycm_collect_identifiers_from_tags_files = 1
+" 从第3个键入字符开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion = 3
+" 在注释输入中也能补全
+let g:ycm_complete_in_comments = 1
+" 在字符串输入中也能补全
+let g:ycm_complete_in_strings = 1
+" 注释和字符串中的文字不会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+" 弹出列表时选择第1项的快捷键(默认为<TAB>和<Down>)
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" 弹出列表时选择前1项的快捷键(默认为<S-TAB>和<UP>)
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" 主动补全, 默认为<C-Space>
+let g:ycm_key_invoke_completion = '<c-j>'
+imap <leader>j <c-j>
+" 停止显示补全列表(防止列表影响视野), 可以按<C-Space>重新弹出
+let g:ycm_key_list_stop_completion = ['<c-k>']
+imap <leader>k <c-k>
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
+set completeopt=menu,menuone
 
 "noremap <c-z> <NOP>
 

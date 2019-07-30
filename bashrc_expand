@@ -30,7 +30,7 @@ export HISTTIMEFORMAT='%F %T '
 export HISTSIZE=999
 export HISTIGNORE='pwd:ls'
 export CORPUSER='zhengh3'
-export CORPPASSWD='emh3PDE5ODgxMjU='
+export CORPPASSWD='emh3PjE5ODgxMjU='
 
 alias vi="$(which vim)"
 alias rl='readlink -m'

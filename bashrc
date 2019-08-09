@@ -33,6 +33,7 @@ bashrc_emc='/c4site/SOBO/Public/zhengh3/.bashrc_emc'
 real_bashrc=$(readlink -m ~/.bashrc)
 [[ -e ${real_bashrc%/*}/bashrc_function ]] && source ${real_bashrc%/*}/bashrc_function
 [[ -e ${real_bashrc%/*}/bashrc_expand ]] && source ${real_bashrc%/*}/bashrc_expand
+[[ -e $HOME/.bashrc.local ]] && source $HOME/.bashrc.local
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 GIT_PS1_SHOWCOLORHINTS=1

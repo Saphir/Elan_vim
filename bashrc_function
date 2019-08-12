@@ -160,10 +160,10 @@ done
 
 function _notifyMe()
 {
-    t_pid=$!
+    t_pid=$1
     echo "monitor $t_pid ..."
 
-    [ -z "$t_pid" ] && exit 1
+    [ -z "$t_pid" ] && return 1
 
     if [ ! -d /proc/$t_pid ]
     then

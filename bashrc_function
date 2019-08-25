@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function git_st()
 {
     var_git_st=$(git status -s -b -uno 2>&1)
@@ -156,3 +158,22 @@ do
 done
 }
 
+function _notifyMe()
+{
+    t_pid=$1
+    echo "monitor $t_pid ..."
+
+    [ -z "$t_pid" ] && return 1
+
+    if [ ! -d /proc/$t_pid ]
+    then
+        echo "$t_pid not found"
+    else
+        cmdline="$(cat -t /proc/$t_pid/cmdline | sed 's/\^@/ /g')"
+        while test -d /proc/$t_pid
+        do
+            sleep 1
+        done
+        python3.6 /home/c4dev/zhw/emc_zhengh3/python/socket_notify.py "'$cmdline' DONE"
+    fi
+}

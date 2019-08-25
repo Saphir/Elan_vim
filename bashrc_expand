@@ -21,7 +21,7 @@ PATH="/home/c4dev/bin:/home/c4dev/Program/bin${PATH:+:${PATH}}"
 LD_LIBRARY_PATH="/home/c4dev/python/python3.6/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
 if [ "$ZSH_VERSION" ]; then # zsh
-    export PS1=$'[zsh %F{yellow}%*%F{magenta}$(git_st) %F{green}%5~%f]\n\$ '
+    export PS1='[zsh %F{yellow}%*%F{magenta}$(git_st) %F{green}%5~%f]\n\$ '
 elif [ "$BASH_VERSION" ]; then # bash
     #export PS1="[$YELLOW\t$UNSETCOLOR $LIGHTBLUE"'$(TZ=Asia/Shanghai date +%T)'"$LIGHTPURPLE"'$(git_st)'"$UNSETCOLOR \W]\n\$ "
     export PS1="[\h $YELLOW\t$UNSETCOLOR$LIGHTPURPLE"'$(git_st)'"$UNSETCOLOR \W]\n\$ "

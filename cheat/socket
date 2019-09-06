@@ -1,0 +1,28 @@
+# golang
+>>> server
+ln, err := net.Listen("tcp", ":8080")
+conn, err := ln.Accept()
+<serve IO>
+>>> client
+conn, err := net.Dial("tcp", "golang.org:80")
+<serve IO>
+
+# C (epoll)
+>>> server
+#include <sys/socket.h> // socket
+listen_fd = socket(AF_INET, SOCK_STREAM, 0)
+bind(listen_fd, (struct sockaddr *)&server_addr, sizeof(server_addr))
+listen(listen_fd, 3)
+epoll_fd = epoll_create1(0)
+while true:
+    nfds = epoll_wait(epoll_fd, events, MAXEVENTS, 10) // number of active fds
+    for fd in nfds:
+        if is listen_fd:
+            client_fd = accept(listen_fd, (struct sockaddr *)&client_addr, (socklen_t*)&client_addr_len)
+        else:
+            // client_fd serves IO
+>>> client
+client_fd = socket(AF_INET, SOCK_STREAM, 0)
+connect(client_fd, (struct sockaddr *)&client_addr, sizeof(client_addr)) < 0)
+<serve IO>
+

@@ -60,7 +60,7 @@ function ctouch()
 }
 WPATHS=(\
 /home/c4dev/zhw/emc_zhengh3
-/home2/work_spaces
+/home/c4dev/go/src
 /c4_working/git_workspace
 /c4site/SOBO/Public/zhengh3
 /home/c4dev/apache/htdocs/links
@@ -74,10 +74,10 @@ function cdd()
     then
         if [ -d "$1" ]
         then
-            cd $1
+            pushd $1
         else
             echo ${WPATHS[$1-1]}
-            cd ${WPATHS[$1-1]}
+            pushd ${WPATHS[$1-1]}
         fi
     else
         local n=1
@@ -92,7 +92,7 @@ function cdd()
             echo -n "Dest: "
             read num
         done
-        cd ${WPATHS[$num-1]}
+        pushd ${WPATHS[$num-1]}
     fi
 }
 grepktrace ()

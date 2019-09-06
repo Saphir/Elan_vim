@@ -78,20 +78,22 @@ endif
 let mapleader = ';'
 let g:mapleader = ';'
 
-map <leader>q :qa<CR>
-imap <leader>q <ESC>:qa<CR>
-vmap <leader>q <ESC>:qa<CR>
+nmap <leader>q :bd<CR>
 
-map <leader>Q :qa!<CR>
-imap <leader>Q <ESC>:qa!<CR>
-vmap <leader>Q <ESC>:qa!<CR>
+map <leader>qq :qa!<CR>
+imap <leader>qq <ESC>:qa!<CR>
+vmap <leader>qq <ESC>:qa!<CR>
+
+map <leader>qqq :qa!<CR>
+imap <leader>qqq <ESC>:qa!<CR>
+vmap <leader>qqq <ESC>:qa!<CR>
 
 map <leader>S :wqa!<CR>
 imap <leader>S <ESC>:wqa!<CR>
 vmap <leader>S <ESC>:wqa!<CR>
 
 map <leader>s :w<CR>
-imap <leader>s <ESC>:w<CR>a
+imap <leader>s <ESC>:w<CR>
 vmap <leader>s <ESC>:w<CR>v
 
 map <leader>p :set paste!<CR>
@@ -148,6 +150,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'majutsushi/tagbar' " a class outline viewer for Vim
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/MultipleSearch'
+Plug 'fatih/vim-go'
 call plug#end()
 
 " ======================================================================
@@ -308,3 +311,9 @@ if $TMUX != ''
 elseif &ttimeoutlen > 60 || &ttimeoutlen <= 0
 	set ttimeoutlen=60
 endif
+
+" Golang mappings
+" https://github.com/fatih/vim-go/blob/master/doc/vim-go.txt
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)

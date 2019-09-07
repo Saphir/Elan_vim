@@ -68,10 +68,10 @@ function cdd()
     then
         if [ -d "$1" ]
         then
-            cd $1
+            pushd $1
         else
             echo ${WPATHS[$1-1]}
-            cd ${WPATHS[$1-1]}
+            pushd ${WPATHS[$1-1]}
         fi
     else
         local n=1
@@ -86,7 +86,7 @@ function cdd()
             echo -n "Dest: "
             read num
         done
-        cd ${WPATHS[$num-1]}
+        pushd ${WPATHS[$num-1]}
     fi
 }
 grepktrace ()

@@ -1,0 +1,11 @@
+# start/check nginx
+$ sudo systemctl start nginx
+$ sudo systemctl status nginx
+$ sudo systemctl reload nginx
+
+# check port
+$ sudo netstat -tulpn | grep :80
+$ sudo lsof -i :80
+
+# check config
+$ sudo vi /etc/nginx/nginx.conf

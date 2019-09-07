@@ -1,0 +1,13 @@
+# random int
+import "math/rand"
+rand.Seed(time.Now().UnixNano())
+i := rand.Intn(100) // [0, 100)
+
+# wait for goroutine
+import "sync"
+wg := sync.WaitGroup
+wg.Add(3)
+defer wg.Done() # in goroutine function
+wg.Wait()
+
+

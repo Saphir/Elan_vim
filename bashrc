@@ -36,5 +36,10 @@ real_bashrc=$(readlink -m ~/.bashrc)
 [[ -e $HOME/.bashrc.local ]] && source $HOME/.bashrc.local
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-GIT_PS1_SHOWCOLORHINTS=1
-[[ $PS1 = *'>'* ]] && PROMPT_COMMAND="__git_ps1 '${PS1%>*}' '>${PS1##*>}'"
+
+alias vi='/home/zhengh3/Programs/bin/vim'
+alias vim='/home/zhengh3/Programs/bin/vim'
+
+alias _to34_80_72_76='ssh ynzhenghaowen@34.80.72.76'
+
+export http_proxy=http://127.0.0.1:1080/

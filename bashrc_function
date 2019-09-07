@@ -59,14 +59,8 @@ function ctouch()
     dd if=/dev/urandom of=$1 bs=1M count=1 status=none
 }
 WPATHS=(\
-/home/c4dev/zhw/emc_zhengh3
-/home2/work_spaces
-/c4_working/git_workspace
-/c4site/SOBO/Public/zhengh3
-/home/c4dev/apache/htdocs/links
-/home2/work_spaces/AutoX_Git
-/c4_working/etwas_logs
-/home/c4dev/zhw/c++
+/home/zhengh3/mycode
+/home/zhengh3/go/src
 )
 function cdd()
 {

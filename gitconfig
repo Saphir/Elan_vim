@@ -22,37 +22,22 @@
     top = rev-parse --show-toplevel
     df = difftool
     prune = fetch --prune
-    login = "!f() { \
-        python3 /c4site/SOBO/Public/zhengh3/scripts/git_login.py; \
-    }; f"
-    pl = "!f() { \
-        [[ -e ~/.git-credential-cache/socket ]] && rm ~/.git-credential-cache/socket; \
-        python3 /c4site/SOBO/Public/zhengh3/scripts/git_login.py; \
-        git fetch; \
-        git pull --ff --no-edit; \
-    }; f"
-    ps = "!f() { \
-        python3 /c4site/SOBO/Public/zhengh3/scripts/git_login.py; \
-        git push; \
-    }; f"
 [diff]
     tool = icdiff
 [difftool]
     prompt = false
 [difftool "icdiff"]
-    cmd = /home/c4dev/bin/icdiff --line-numbers $LOCAL $REMOTE
+    cmd = icdiff --line-numbers $LOCAL $REMOTE
 [push]
 	default = simple
 [adsk "github"]
 	account = zhengh3
 	server = eos2git.cec.lab.emc.com
-[include]
-	path = /home/c4dev/.enterprise/config.include
 [credential "https://eos2git.cec.lab.emc.com"]
     username = zhengh3
 	helper = cache --timeout=86400
 [http]
-	sslCAInf = /home/c4dev/EMC_CA_Root.pem
+	proxy = socks5://127.0.0.1:1080
 [bugtraq "jira"]
 	url = https://jira.yourcompany.com/browse/%BUGID%
 	logregex = \\b([A-Z]{2,5}-\\d+)\\b
@@ -60,7 +45,5 @@
 	pushInsteadOf = https://github.com/Saphir/Elan_vim.git
 [url "git@github.com/Saphir/Elan_vim.git"]
 	pushInsteadOf = git@github.com/Saphir/Elan_vim.git
-[init]
-	templatedir = /home/c4dev/.enterprise/template
 [credential]
 	helper = cache --timeout=86400

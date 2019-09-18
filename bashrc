@@ -38,3 +38,5 @@ real_bashrc=$(readlink -m ~/.bashrc)
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 GIT_PS1_SHOWCOLORHINTS=1
 [[ $PS1 = *'>'* ]] && PROMPT_COMMAND="__git_ps1 '${PS1%>*}' '>${PS1##*>}'"
+
+export PATH=$(echo $PATH | sed 's/:/\n/g' | sort | uniq | tr '\n' ':')

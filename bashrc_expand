@@ -61,6 +61,29 @@ PATH="/home/c4dev/python/python3.5/bin${PATH:+:${PATH}}"
 PATH="/home/c4dev/python/python3.6/bin${PATH:+:${PATH}}"
 PATH="/home/c4dev/python/python3.7/bin${PATH:+:${PATH}}"
 
+# venv
+# pip install virtualenvwrapper
+export WORKON_HOME="$HOME/.virtualenvs"
+#/home/c4dev/python/python3.6/bin/pip
+#/home/c4dev/python/python3.6/bin/virtualenvwrapper.sh
+#/usr/bin/python
+pip_path=$(dirname $(which pip))
+if [ -n "$pip_path" ]
+then
+    if [[ $(dirname $pip_path) =~ /usr.* ]]
+    then
+        virtualenvwrapper='/usr/local/bin/virtualenvwrapper.sh'
+    else
+        virtualenvwrapper="$pip_path/virtualenvwrapper.sh"
+        export VIRTUALENVWRAPPER_PYTHON="$(find $pip_path -regex .*/python[0-9] -executable)"
+    fi
+    if [ -n "$virtualenvwrapper" ]
+    then
+        source "$virtualenvwrapper"
+    fi
+fi
+# mkvirtualenv venv
+
 # perl
 #PATH="/home/c4dev/ActivePerl-5.24/site/bin:/home/c4dev/ActivePerl-5.24/bin${PATH:+:${PATH}}"
 #MANPATH="/home/c4dev/ActivePerl-5.24/site/man:/home/c4dev/ActivePerl-5.24/man${MANPATH:+:${MANPATH}}"

@@ -10,4 +10,10 @@ wg.Add(3)
 defer wg.Done() # in goroutine function
 wg.Wait()
 
-
+# string, int, hex, bin convert
+strconv.Atoi(<string>)
+strconv.Itoa(<int>)
+strconv.ParseInt("0xff", 0, 32)
+strconv.ParseInt("0b101101", 0, 32)
+fmt.Sprintf("0x%x", 255)
+fmt.Sprintf("0b%b", 23)

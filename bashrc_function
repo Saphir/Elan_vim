@@ -59,7 +59,7 @@ function ctouch()
     dd if=/dev/urandom of=$1 bs=1M count=1 status=none
 }
 WPATHS=(\
-/home/zhengh3/mycode
+/home/zhengh3/zhw
 /home/zhengh3/go/src
 )
 function cdd()
@@ -171,3 +171,21 @@ function _notifyMe()
         python3.6 /home/c4dev/zhw/emc_zhengh3/python/socket_notify.py "'$cmdline' DONE"
     fi
 }
+
+function C() {
+	if [ "$1" == "build" ]; then
+		shift
+		g++ -std=c++1y "$@" Main.cpp
+		rc=$?
+	elif [ "$1" == "run" ]; then
+		shift
+		exefile=/tmp/C_build_$$
+		g++ -std=c++1y -o $exefile Main.cpp
+		[ $? -eq 0 ] && $exefile "$@"
+		rc=$?
+		rm $exefile
+	fi
+
+	return $rc
+}
+

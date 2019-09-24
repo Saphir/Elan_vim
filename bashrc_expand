@@ -60,6 +60,7 @@ PATH="/home/c4dev/python/python3.7/bin${PATH:+:${PATH}}"
 # go
 PATH="/usr/local/go/bin${PATH:+:${PATH}}"
 PATH="$HOME/go/bin${PATH:+:${PATH}}"
+alias gotest='go test -v -cover -bench .'
 
 # fasd https://github.com/clvv/fasd
 eval "$(fasd --init auto)"

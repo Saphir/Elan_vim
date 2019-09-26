@@ -12,7 +12,6 @@ cd $(dirname $(readlink -m $0))
 
 for i in vim vimrc bashrc gitconfig zshrc screenrc tmux.conf
 do
-    [ -e ~/.${i} ] && (mv ~/.${i} ~/.${i}.bak.$now || die "Fail to mv ~/.${i} ~/.${i}.bak.$now")
     if [[ ${i} == vim ]]
     then
         ln -s $(readlink -m .) ~/.${i} || die "Fail to create symbolic link ~/.${i}"

@@ -210,9 +210,14 @@ function on() {
                 function leetcodeStart() { \
                     mkdir $1 || return $?;\
                     cp leetcode_start $1/$1.cpp || return $?;\
-                    [ -e Main.cpp ] && (rm Main.cpp || return $?);\
+                    [ -L Main.cpp ] && (rm Main.cpp || return $?);\
                     ln -s $1/$1.cpp Main.cpp || return $?;\
-                }')
+                };\
+                function leetcodeOn() { \
+                    [ -L Main.cpp ] && (rm Main.cpp || return $?);\
+                    ln -s $1/$1.cpp Main.cpp || return $?;\
+                }'\
+            )
         fi;;
     'golang')
         local _golang_path='/home/c4dev/go/src'

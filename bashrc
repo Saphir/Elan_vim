@@ -41,5 +41,6 @@ alias vi='/home/zhengh3/Programs/bin/vim'
 alias vim='/home/zhengh3/Programs/bin/vim'
 
 alias _to34_80_72_76='ssh ynzhenghaowen@34.80.72.76'
+alias _tobwg='ssh -p 27371 zhengh3@104.194.71.31'
 
-export http_proxy=http://127.0.0.1:1080/
+#export http_proxy=http://127.0.0.1:1080/

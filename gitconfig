@@ -1,6 +1,6 @@
 [user]
-	name = Zheng, Haowen
-	email = Haowen.Zheng@emc.com
+	name = Emiya, Elan
+	email = zhenghwwork@hotmail.com
 [merge]
     tool = icdiff
     #ff = only
@@ -46,21 +46,5 @@
 [adsk "github"]
 	account = zhengh3
 	server = eos2git.cec.lab.emc.com
-[include]
-	path = /home/c4dev/.enterprise/config.include
-[credential "https://eos2git.cec.lab.emc.com"]
-    username = zhengh3
-	helper = cache --timeout=86400
-[http]
-	sslCAInf = /home/c4dev/EMC_CA_Root.pem
-[bugtraq "jira"]
-	url = https://jira.yourcompany.com/browse/%BUGID%
-	logregex = \\b([A-Z]{2,5}-\\d+)\\b
-[url "https://github.com/Saphir/Elan_vim.git"]
-	pushInsteadOf = https://github.com/Saphir/Elan_vim.git
-[url "git@github.com/Saphir/Elan_vim.git"]
-	pushInsteadOf = git@github.com/Saphir/Elan_vim.git
-[init]
-	templatedir = /home/c4dev/.enterprise/template
 [credential]
 	helper = cache --timeout=86400

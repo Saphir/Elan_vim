@@ -17,24 +17,24 @@ LIGHTGRAY='\e[0;37m'
 WHITE='\e[1;37m'
 UNSETCOLOR='\e[m'
 
-PATH="/home/c4dev/bin:/home/c4dev/Program/bin${PATH:+:${PATH}}"
-LD_LIBRARY_PATH="/home/c4dev/python/python3.6/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+PATH="$HOME/bin:$HOME/Programs/bin${PATH:+:${PATH}}"
+LD_LIBRARY_PATH="$HOME/python/python3.6/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
 if [ "$ZSH_VERSION" ]; then # zsh
     export PS1='[zsh %F{yellow}%*%F{magenta}$(git_st) %F{green}%5~%f]\n\$ '
 elif [ "$BASH_VERSION" ]; then # bash
-    #export PS1="[$YELLOW\t$UNSETCOLOR $LIGHTBLUE"'$(TZ=Asia/Shanghai date +%T)'"$LIGHTPURPLE"'$(git_st)'"$UNSETCOLOR \W]\n\$ "
-    export PS1="[\h $YELLOW\t$UNSETCOLOR$LIGHTPURPLE"'$(git_st)'"$UNSETCOLOR \W]\n\$ "
+    #export PS1="[$YELLOW\t$UNSETCOLOR $LIGHTBLUE"'$(TZ=Asia/Shanghai date +%T)'"$LIGHTPURPLE$UNSETCOLOR \W]\n\$ "
+    export PS1="[\h $YELLOW\t$UNSETCOLOR$LIGHTPURPLE$UNSETCOLOR \W]\n\$ "
 fi
 export HISTTIMEFORMAT='%F %T '
 export HISTSIZE=999
 export HISTIGNORE='pwd:ls'
-export CORPUSER='zhengh3'
-export CORPPASSWD='emh3PjE5ODgxMjU='
 
 alias vi="$(which vim)"
 alias rl='readlink -m'
 alias g11='g++ -std=c++11'
+alias ..='cd ..'
+alias ...='cd ../..'
 if which htop > /dev/null 2>&1; then alias top=$(which htop);fi
 
 # public IP
@@ -49,17 +49,14 @@ export _LOCALNM=$localnm
 export _LOCALGW=$localgw
 
 # virtualenv
-#export WORKON_HOME=/home/c4dev/venv
+#export WORKON_HOME=$HOME/venv
 #alias venv='. /usr/bin/virtualenvwrapper.sh'
 #. /usr/bin/virtualenvwrapper.sh
 
-# mail_subrun mail_to
-export MS_TO=Haowen.Zheng@emc.com
-
 # python
-PATH="/home/c4dev/python/python3.5/bin${PATH:+:${PATH}}"
-PATH="/home/c4dev/python/python3.6/bin${PATH:+:${PATH}}"
-PATH="/home/c4dev/python/python3.7/bin${PATH:+:${PATH}}"
+PATH="$HOME/python/python3.5/bin${PATH:+:${PATH}}"
+PATH="$HOME/python/python3.6/bin${PATH:+:${PATH}}"
+PATH="$HOME/python/python3.7/bin${PATH:+:${PATH}}"
 
 # venv
 # pip install virtualenvwrapper
@@ -85,9 +82,9 @@ fi
 # mkvirtualenv venv
 
 # perl
-#PATH="/home/c4dev/ActivePerl-5.24/site/bin:/home/c4dev/ActivePerl-5.24/bin${PATH:+:${PATH}}"
-#MANPATH="/home/c4dev/ActivePerl-5.24/site/man:/home/c4dev/ActivePerl-5.24/man${MANPATH:+:${MANPATH}}"
-#PERLLIB="/home/c4dev/ActivePerl-5.24/site/lib:/home/c4dev/ActivePerl-5.24/lib${PERLLIB:+:${PERLLIB}}"
+#PATH="$HOME/ActivePerl-5.24/site/bin:/home/c4dev/ActivePerl-5.24/bin${PATH:+:${PATH}}"
+#MANPATH="$HOME/ActivePerl-5.24/site/man:/home/c4dev/ActivePerl-5.24/man${MANPATH:+:${MANPATH}}"
+#PERLLIB="$HOME/ActivePerl-5.24/site/lib:/home/c4dev/ActivePerl-5.24/lib${PERLLIB:+:${PERLLIB}}"
 
 # java
 export CLASSPATH=".;$JAVA_HOME/lib"

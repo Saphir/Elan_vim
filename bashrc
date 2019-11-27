@@ -43,5 +43,10 @@ alias vim='/home/zhengh3/Programs/bin/vim'
 alias _to34_80_72_76='ssh ynzhenghaowen@34.80.72.76'
 alias _tobwg='ssh -p 27371 zhengh3@104.194.71.31'
 
+export ENV_DIR='/home/zhengh3/venv'
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=$HOME/Programs/bin/python3.6
+source /usr/local/bin/virtualenvwrapper.sh
+
 #export http_proxy=http://127.0.0.1:1080/
 export PATH=$(echo $PATH | sed 's/:/\n/g' | sort | uniq | tr '\n' ':')

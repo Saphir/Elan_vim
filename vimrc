@@ -263,6 +263,8 @@ set completeopt=menu,menuone
 " junegunn/fzf.vim
 noremap <leader>f :GFiles<cr>
 noremap <leader>b :Buffers<cr>
+noremap <leader>a :Ag<cr>
+noremap <leader>t :Tags<cr>
 
 "let g:Lf_NormalMap = {
 	"\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],

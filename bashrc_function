@@ -168,7 +168,7 @@ function _notifyMe()
         do
             sleep 1
         done
-        python3.6 /home/c4dev/zhw/emc_zhengh3/python/socket_notify.py "'$cmdline' DONE"
+        python3.6 $HOME/zhw/emc_zhengh3/python/socket_notify.py "'$cmdline' DONE"
     fi
 }
 
@@ -183,15 +183,10 @@ function _com_on()
     fi
 }
 complete -F _com_on on
-function on() {
-    case "$1" in
-    'leetcode')
-        local _leetcode_path='/home/c4dev/zhw/emc_zhengh3/c++/leetcode'
-        if [ -d "$_leetcode_path" ]; then
-            bash --init-file <(echo 'source $HOME/.bashrc;\
-                cd '"$_leetcode_path"';\
-                export PS1="[on '"$1"']$PS1";\
-                function cbuild() { \
+if [ -n "$_LEETCODE_PATH" ]; then
+    cd "$_LEETCODE_PATH"
+    export PS1="[on '"$1"']$PS1"
+    source <(echo 'function cbuild() { \
                     g++ -std=c++1y "$@" Main.cpp;\
                 };\
                 function crun() { \
@@ -210,13 +205,20 @@ function on() {
                 function leetcodeOn() { \
                     [ -L Main.cpp ] && (rm Main.cpp || return $?);\
                     ln -s $1/$1.cpp Main.cpp || return $?;\
-                }'\
-            )
+                }')
+fi
+function on() {
+    case "$1" in
+    'leetcode')
+        local _leetcode_path="$HOME/zhw/emc_zhengh3/c++/leetcode"
+        if [ -d "$_leetcode_path" ]; then
+            export _LEETCODE_PATH="$_leetcode_path"
+            bash
         fi;;
     'golang')
-        local _golang_path='/home/c4dev/go/src'
+        local _golang_path="$HOME/go/src"
         if [ -d "$_golang_path" ]; then
-            bash --init-file <(echo 'source $HOME/.bashrc;\
+            bash --init-file <(echo 'source '"$HOME"'/.bashrc;\
                 cd '"$_golang_path"';\
                 export PS1="[on '"$1"']$PS1";\')
         else

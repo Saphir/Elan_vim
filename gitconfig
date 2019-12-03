@@ -1,6 +1,6 @@
 [user]
-	name = Emiya, Elan
-	email = zhenghwwork@hotmail.com
+	name = haowen.zheng
+	email = haowen.zheng@wz-inc.com
 [merge]
     tool = icdiff
     #ff = only
@@ -22,29 +22,47 @@
     top = rev-parse --show-toplevel
     df = difftool
     prune = fetch --prune
-    login = "!f() { \
-        python3 /c4site/SOBO/Public/zhengh3/scripts/git_login.py; \
+    addci = "!f() { \
+        git add -u; \
+        git commit -m "\"$1\""; \
     }; f"
     pl = "!f() { \
-        [[ -e ~/.git-credential-cache/socket ]] && rm ~/.git-credential-cache/socket; \
-        python3 /c4site/SOBO/Public/zhengh3/scripts/git_login.py; \
+        [ -e ~/.git-credential-cache/socket ] && rm ~/.git-credential-cache/socket; \
         git fetch; \
         git pull --ff --no-edit; \
     }; f"
     ps = "!f() { \
-        python3 /c4site/SOBO/Public/zhengh3/scripts/git_login.py; \
-        git push; \
+        current_branch=$(git rev-parse --abbrev-ref --symbolic-full-name HEAD); \
+        git push $@ origin $current_branch; \
     }; f"
+    squash = "!f() { \
+        git rebase; \
+        tracking_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}); \
+        current_branch=$(git rev-parse --abbrev-ref --symbolic-full-name HEAD); \
+        merge_base=$(git merge-base $current_branch $tracking_branch); \
+        echo '>>> '"$current_branch is tracking $tracking_branch @ $merge_base ..."; \
+        git rev-list --format=%B $merge_base..HEAD; \
+        last_comment=$(git log --format=%B -n 1 HEAD); \
+        changed_files=$(git diff $merge_base..HEAD --name-status | awk '{print $2}'); \
+        current_head=$(git rev-parse HEAD); \
+        echo '>>> '"reset to $merge_base from HEAD $current_head"; \
+        git reset $merge_base; \
+        echo '>>> '"add new/modified files: $changed_files"; \
+        git add $changed_files; \
+        echo '>>> '"commit with the last comment: $last_comment"; \
+        git commit -m "\"$last_comment"\"; \
+    }; f"
+    mergebase = "!f() { \
+        git merge-base $(git rev-parse --abbrev-ref --symbolic-full-name HEAD) $(git rev-parse --abbrev-ref --symbolic-full-name @{u}); \
+    }; f"
+
 [diff]
     tool = icdiff
 [difftool]
     prompt = false
 [difftool "icdiff"]
-    cmd = /home/c4dev/bin/icdiff --line-numbers $LOCAL $REMOTE
+    cmd = $HOME/.local/bin/icdiff --line-numbers $LOCAL $REMOTE
 [push]
 	default = simple
-[adsk "github"]
-	account = zhengh3
-	server = eos2git.cec.lab.emc.com
 [credential]
 	helper = cache --timeout=86400

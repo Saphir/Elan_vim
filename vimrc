@@ -13,6 +13,12 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 
+set cursorcolumn
+" set cursorline
+" highlight Cursor ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
+highlight CursorColumn ctermfg=None ctermbg=gray cterm=bold guifg=white guibg=yellow gui=bold
+" highlight CursorLine ctermfg=None ctermbg=lightucterm=bold guifg=white guibg=yellow gui=bold
+
 set nobackup
 set noswapfile
 
@@ -119,7 +125,8 @@ function! NumberToggle()
   endif
   set number?
 endfunc
-nnoremap <F2> :call NumberToggle()<CR>
+"nnoremap <F2> :call NumberToggle()<CR>
+map <F2> :call NumberToggle()<CR>
 
 " ======================================================================
 " https://github.com/junegunn/vim-plug
@@ -151,6 +158,8 @@ Plug 'majutsushi/tagbar' " a class outline viewer for Vim
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/MultipleSearch'
 Plug 'fatih/vim-go'
+Plug 'airblade/vim-gitgutter'
+Plug 'kien/rainbow_parentheses.vim' " 不同颜色区分括号匹配
 call plug#end()
 
 " ======================================================================
@@ -263,6 +272,8 @@ set completeopt=menu,menuone
 " junegunn/fzf.vim
 noremap <leader>f :GFiles<cr>
 noremap <leader>b :Buffers<cr>
+noremap <leader>a :Ag<cr>
+noremap <leader>t :Tags<cr>
 
 "let g:Lf_NormalMap = {
 	"\ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
@@ -317,3 +328,83 @@ endif
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
+
+map <F3> :GitGutterToggle<CR>
+
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+        exec "w"
+        if &filetype == 'c'
+                exec "!g++ % -o %<"
+                exec "!time ./%<"
+        elseif &filetype == 'cpp'
+                exec "!g++ % -o %<"
+                exec "!time ./%<"
+        elseif &filetype == 'java'
+                exec "!javac %"
+                exec "!time java %<"
+        elseif &filetype == 'sh'
+                :!time bash %
+        elseif &filetype == 'python'
+                exec "!clear"
+                exec "!time python3 %"
+        elseif &filetype == 'html'
+                exec "!firefox % &"
+        elseif &filetype == 'go'
+                " exec "!go build %<"
+                exec "!time go run %"
+        elseif &filetype == 'mkd'
+                exec "!~/.vim/markdown.pl % > %.html &"
+                exec "!firefox %.html &"
+        endif
+endfunc
+
+" for python
+let python_highlight_all=1
+au Filetype python set tabstop=4
+au Filetype python set softtabstop=4
+au Filetype python set shiftwidth=4
+au Filetype python set textwidth=79
+au Filetype python set expandtab
+au Filetype python set autoindent
+au Filetype python set fileformat=unix
+autocmd Filetype python set foldmethod=indent
+autocmd Filetype python set foldlevel=99
+
+" rainbow_parentheses
+let g:rbpt_colorpairs = [
+                        \ ['brown',       'RoyalBlue3'],
+                        \ ['Darkblue',    'SeaGreen3'],
+                        \ ['darkgray',    'DarkOrchid3'],
+                        \ ['darkgreen',   'firebrick3'],
+                        \ ['darkcyan',    'RoyalBlue3'],
+                        \ ['darkred',     'SeaGreen3'],
+                        \ ['darkmagenta', 'DarkOrchid3'],
+                        \ ['brown',       'firebrick3'],
+                        \ ['gray',        'RoyalBlue3'],
+                        \ ['darkmagenta', 'DarkOrchid3'],
+                        \ ['Darkblue',    'firebrick3'],
+                        \ ['darkgreen',   'RoyalBlue3'],
+                        \ ['darkcyan',    'SeaGreen3'],
+                        \ ['darkred',     'DarkOrchid3'],
+                        \ ['red',         'firebrick3'],
+                        \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+" file header
+func SetTitle()
+if &filetype == 'sh'
+    call setline(1, "/#!/bin/bash")
+elseif &filetype == 'python'
+    call setline(1, "#!/usr/bin/env python")
+    call setline(2, "# -*- coding: utf-8 -*-")
+endif
+normal G
+normal o
+endfunc
+autocmd BufNewFile *.php,*.pl,*.py,*.[ch],*.py,*.sh,*.java exec ":call SetTitle()"

@@ -1,0 +1,5 @@
+#include <cstdlib>  /* exit system malloc atoi rand */
+#include <iostream> /* std::cout std::endl */
+#include <cstdio>   /* fopen fgets printf */
+#include <unistd.h> /* read sleep NULL */
+

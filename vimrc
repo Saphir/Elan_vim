@@ -90,10 +90,6 @@ map <leader>qq :qa!<CR>
 imap <leader>qq <ESC>:qa!<CR>
 vmap <leader>qq <ESC>:qa!<CR>
 
-map <leader>qqq :qa!<CR>
-imap <leader>qqq <ESC>:qa!<CR>
-vmap <leader>qqq <ESC>:qa!<CR>
-
 map <leader>S :wqa!<CR>
 imap <leader>S <ESC>:wqa!<CR>
 vmap <leader>S <ESC>:wqa!<CR>
@@ -114,6 +110,28 @@ func! CleanBlankLine()
     exec ':noh'
 endfunc
 map <leader>c :call CleanBlankLine()<CR>
+
+func! CppHeaderLib()
+    let vfile = expand("$HOME/.vim/_template/cppHeaderLib")
+    if filereadable(vfile) " check if cpp template exists
+        exec ":.-1read " vfile
+        normal G
+    else
+        echo vfile " not found"
+    endif
+endfunc
+func! CppHeaderMain()
+    let vfile = expand("$HOME/.vim/_template/cppHeaderMain")
+    if filereadable(vfile) " check if cpp template exists
+        exec ":.-1read " vfile
+        normal G
+    else
+        echo vfile " not found"
+    endif
+endfunc
+nnoremap <leader>h1 :call CppHeaderLib()<CR>
+nnoremap <leader>h2 :call CppHeaderMain()<CR>
+nnoremap <leader>hh :call CppHeaderLib()<CR>:call CppHeaderMain()<CR>
 
 function! NumberToggle()
   if(&relativenumber)
@@ -405,21 +423,21 @@ func SetTitle()
 if &filetype == 'sh'
     call setline(1, "/#!/bin/bash")
     call append(line("."), "")
+    normal G
 elseif &filetype == 'python'
     call setline(1, "#!/usr/bin/env python")
     call setline(2, "# -*- coding: utf-8 -*-")
     call append(line(".")+1, "")
+    normal G
 endif
 
-if expand("%:e") == 'cpp'
-    call setline(1, "#include <cstdlib> /* exit system malloc atoi rand */")
-    call setline(2, "#include <iostream> /* std::cout std::endl */")
-    call setline(3, "#include <cstdio> /* fopen fgets printf */")
-    call setline(4, "#include <unistd.h> /* read sleep NULL */")
-endif
+"if expand("%:e") == 'cpp'
+"    call setline(1, "#include <cstdlib>  /* exit system malloc atoi rand */")
+"    call setline(2, "#include <iostream> /* std::cout std::endl */")
+"    call setline(3, "#include <cstdio>   /* fopen fgets printf */")
+"    call setline(4, "#include <unistd.h> /* read sleep NULL */")
+"endif
 
-normal G
-normal o
 endfunc
 autocmd BufNewFile *.cpp,*.php,*.pl,*.py,*.[ch],*.py,*.sh,*.java exec ":call SetTitle()"
 

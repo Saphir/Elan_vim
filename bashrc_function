@@ -232,3 +232,9 @@ function on() {
         echo "Unknown option `$1`";;
     esac
 }
+
+function httpserver() {
+    local _port=${1:-8888}
+    python3 -m http.server ${_port}
+}
+

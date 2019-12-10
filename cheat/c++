@@ -1,7 +1,8 @@
-#include <csignal>   // signal
+#include <csignal>   /* signal */
+
 void sigint_handler(int sig) {
     if (sig == SIGINT) {
-	// ...
+	    // ...
 	}
 }
 signal(SIGINT, sigint_handler);

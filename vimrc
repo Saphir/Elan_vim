@@ -13,10 +13,10 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 
-set cursorcolumn
+" set cursorcolumn
 " set cursorline
 " highlight Cursor ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
-highlight CursorColumn ctermfg=None ctermbg=gray cterm=bold guifg=white guibg=yellow gui=bold
+" highlight CursorColumn ctermfg=None ctermbg=gray cterm=bold guifg=white guibg=yellow gui=bold
 " highlight CursorLine ctermfg=None ctermbg=lightucterm=bold guifg=white guibg=yellow gui=bold
 
 set nobackup
@@ -160,11 +160,12 @@ Plug 'vim-scripts/MultipleSearch'
 Plug 'fatih/vim-go'
 Plug 'airblade/vim-gitgutter'
 Plug 'kien/rainbow_parentheses.vim' " 不同颜色区分括号匹配
+Plug 'scrooloose/nerdtree' " 文件树
 call plug#end()
 
 " ======================================================================
 " ctags
-set tags=./.tags;,tags
+set tags=./.tags;,.tags
 let g:ctags_path='.tags;,tags'
 let g:ctags_statusline=1
 
@@ -331,6 +332,9 @@ au FileType go nmap <leader>t <Plug>(go-test)
 
 map <F3> :GitGutterToggle<CR>
 
+map <F4> :NERDTreeMirror<CR>
+map <F4> :NERDTreeToggle<CR>
+
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
         exec "w"
@@ -338,7 +342,7 @@ func! CompileRunGcc()
                 exec "!g++ % -o %<"
                 exec "!time ./%<"
         elseif &filetype == 'cpp'
-                exec "!g++ % -o %<"
+                exec "!g++ % -std=c++11 -lpthread -o %<"
                 exec "!time ./%<"
         elseif &filetype == 'java'
                 exec "!javac %"
@@ -400,11 +404,22 @@ au Syntax * RainbowParenthesesLoadBraces
 func SetTitle()
 if &filetype == 'sh'
     call setline(1, "/#!/bin/bash")
+    call append(line("."), "")
 elseif &filetype == 'python'
     call setline(1, "#!/usr/bin/env python")
     call setline(2, "# -*- coding: utf-8 -*-")
+    call append(line(".")+1, "")
 endif
+
+if expand("%:e") == 'cpp'
+    call setline(1, "#include <cstdlib> /* exit system malloc atoi rand */")
+    call setline(2, "#include <iostream> /* std::cout std::endl */")
+    call setline(3, "#include <cstdio> /* fopen fgets printf */")
+    call setline(4, "#include <unistd.h> /* read sleep NULL */")
+endif
+
 normal G
 normal o
 endfunc
-autocmd BufNewFile *.php,*.pl,*.py,*.[ch],*.py,*.sh,*.java exec ":call SetTitle()"
+autocmd BufNewFile *.cpp,*.php,*.pl,*.py,*.[ch],*.py,*.sh,*.java exec ":call SetTitle()"
+

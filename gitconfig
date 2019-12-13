@@ -63,6 +63,6 @@
 [difftool "icdiff"]
     cmd = $HOME/.local/bin/icdiff --line-numbers $LOCAL $REMOTE
 [push]
-	default = simple
+	default = current
 [credential]
 	helper = cache --timeout=86400

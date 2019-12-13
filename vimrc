@@ -13,19 +13,17 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 
-" set cursorcolumn
-" set cursorline
-" highlight Cursor ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
-" highlight CursorColumn ctermfg=None ctermbg=gray cterm=bold guifg=white guibg=yellow gui=bold
-" highlight CursorLine ctermfg=None ctermbg=lightucterm=bold guifg=white guibg=yellow gui=bold
+"set cursorcolumn
+"set cursorline
+" hi Cursor ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
+hi CursorColumn ctermfg=None ctermbg=237 cterm=None guifg=white guibg=#3c3d37 gui=None
+" hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
 
 set nobackup
 set noswapfile
 
-set background=dark
-set t_Co=256
-" colorscheme molokai
-"set scrolloff=2
+color desert256
+" set scrolloff=2
 
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 set mouse=n
@@ -42,6 +40,7 @@ set magic
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 set wrap
+" set ruler
 
 set laststatus=2
 set showmatch

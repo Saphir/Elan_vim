@@ -13,4 +13,6 @@ int main(int argc, char * argv[]) {
 #endif
     std::endl(std::cout << "Hello World!");
 
+    // exit(EXIT_FAILURE);
+    return EXIT_SUCCESS;
 }

@@ -40,11 +40,19 @@ Usage:
 EOF
     return 1
     fi
-    files=$(find * -maxdepth 0 -name "*.hxx" -o -name "*.cxx" -o -name "*.hpp" -o -name "*.cpp" |xargs)
-    cmd="g++ -std=c++11 ${@:+$@ }${files} -o a.out"
+    #files=$(find * -maxdepth 0 -name "*.hxx" -o -name "*.cxx" -o -name "*.hpp" -o -name "*.cpp" |xargs)
+    files=$(find * -maxdepth 0 -name "*.cxx" -o -name "*.cpp" |xargs)
+    unset opts
+    for lib in thread atomic; do
+        if grep -q "#include.*<${lib}>" $files; then
+            [ "$lib" == "thread" ] && opts="${opts}"'-pthread ' || opts="${opts}-l${lib}"
+        fi
+    done
+    outfile="/tmp/a.out.$$"
+    cmd="g++ ${files} --std=c++11 -o ${outfile} ${opts:- }$@"
     echo "[CMD] $cmd"
     eval $cmd
-    [[ $? == 0 ]] && ./a.out
+    [[ $? == 0 ]] && ${outfile}
 }
 function gge() {
     files=$(find * -maxdepth 0 -name "*.cxx" -o -name "*.hxx" -o -name "*.hpp" -o -name "*.cpp" |xargs)
@@ -59,14 +67,10 @@ function ctouch()
     dd if=/dev/urandom of=$1 bs=1M count=1 status=none
 }
 WPATHS=(\
-/home/c4dev/zhw/emc_zhengh3
-/home/c4dev/go/src
-/c4_working/git_workspace
-/c4site/SOBO/Public/zhengh3
-/home/c4dev/apache/htdocs/links
-/home2/work_spaces/AutoX_Git
-/c4_working/etwas_logs
-/home/c4dev/zhw/c++
+"$HOME/zhw"
+"$HOME/go/src"
+"$HOME/qx_work/BMW_SDK_CPP"
+"$HOME/zhw/c++"
 )
 function cdd()
 {
@@ -122,32 +126,33 @@ function getLocalIP()
 function httpServer()
 {
 cmd=$1
+port=8050
 while :
 do
     case "$cmd" in
     start)
-        if sudo lsof -i :8050 | grep 8050; then
+        if sudo lsof -i :${port} | grep ${port}; then
             return 0;
         fi
-        echo "Starting python http server ..."
+        echo "Starting python http server on :${port} ..."
         python_http_server_links="${HOME}/HTTP.Server"
         [ ! -e "${python_http_server_links}" ] && mkdir -p ${python_http_server_links}
-        (cd ${python_http_server_links};nohup python3 -m http.server 8050 > /tmp/python.http.server.log 2>&1 &)
+        (cd ${python_http_server_links};nohup python3 -m http.server ${port} > /tmp/python.http.server.log 2>&1 &)
         return 0
         ;;
     stop)
         echo "Stoping python http server ... "
-        sudo lsof -i :8050 | grep 8050
+        sudo lsof -i :${port} | grep ${port}
         if [ "$?" -ne 0 ]; then
             echo "python http service not running ..."
         else
-            server_pid=$(sudo lsof -i :8050 | grep 8050 | awk '{print $2}')
+            server_pid=$(sudo lsof -i :${port} | grep ${port} | awk '{print $2}')
             [ -n "$server_pid" ] && sudo kill -9 ${server_pid}
         fi
         return 0
         ;;
     status)
-        sudo lsof -i :8050 | grep 8050
+        sudo lsof -i :${port} | grep ${port}
         [ "$?" -ne 0 ] && echo "python http service not running ..."
         return 0
         ;;

@@ -131,12 +131,12 @@ GIT_PS1_SHOWCOLORHINTS=1
 
 alias ..='cd ..'
 alias ...='cd ../..'
-alias tt='cd /tmp/tt'
+alias tt="cd ${HOME}/tmp/tt"
 function ctags() {
     local tagsfile=tags
     local cmd=''
     if [ -z "$1" ]; then
-        cmd="/usr/local/bin/ctags -R"
+        cmd="/usr/local/bin/ctags -R --exclude=xml --exclude=html"
     else
         cmd="/usr/local/bin/ctags $@"
     fi
@@ -159,3 +159,7 @@ export PATH=$(echo $PATH | sed 's/:/\n/g' | sort | uniq | tr '\n' ':')
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
         tmux attach -t default || tmux new -s default
 fi
+
+export LC_TIME=en_US.UTF-8
+
+alias txvm='ssh zhengh3@118.25.102.118'

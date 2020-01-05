@@ -24,6 +24,7 @@ set noswapfile
 
 color desert256
 " set scrolloff=2
+set belloff=all
 
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 set mouse=n
@@ -160,7 +161,7 @@ Plug 'tpope/vim-sensible'
 "Plug 'ludovicchabant/vim-gutentags' "自动更新tags文件
 "Plug 'w0rp/ale' "编辑文字的同时就帮你把潜在错误标注出来
 "Plug 'mhinz/vim-signify' "show differences with git, svn ...
-"Plug 'Valloric/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 "Plug 'Yggdroot/LeaderF'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -178,6 +179,8 @@ Plug 'fatih/vim-go'
 Plug 'airblade/vim-gitgutter'
 Plug 'kien/rainbow_parentheses.vim' " 不同颜色区分括号匹配
 Plug 'scrooloose/nerdtree' " 文件树
+Plug 'google/vim-maktaba'
+Plug 'bazelbuild/vim-bazel'
 call plug#end()
 
 " ======================================================================
@@ -341,6 +344,10 @@ elseif &ttimeoutlen > 60 || &ttimeoutlen <= 0
 	set ttimeoutlen=60
 endif
 
+" c++ mappings
+au FileType c,cpp nnoremap cout istd::endl(std::cout << );<left><left>
+au FileType c,cpp inoremap <leader>cout std::endl(std::cout << );<left><left>
+
 " Golang mappings
 " https://github.com/fatih/vim-go/blob/master/doc/vim-go.txt
 au FileType go nmap <leader>r <Plug>(go-run)
@@ -371,9 +378,6 @@ func! CompileRunGcc()
                 exec "!time python3 %"
         elseif &filetype == 'html'
                 exec "!firefox % &"
-        elseif &filetype == 'go'
-                " exec "!go build %<"
-                exec "!time go run %"
         elseif &filetype == 'mkd'
                 exec "!~/.vim/markdown.pl % > %.html &"
                 exec "!firefox %.html &"
@@ -440,3 +444,6 @@ endif
 endfunc
 autocmd BufNewFile *.cpp,*.php,*.pl,*.py,*.[ch],*.py,*.sh,*.java exec ":call SetTitle()"
 
+" ===================================================================
+"au FileType c,cpp nnoremap cout istd::endl(std::cout << );<left><left>
+au FileType c,cpp inoremap <leader>logd DEBUG::DebugMgr::Instance()->LogD("",);<left><left><left><left>

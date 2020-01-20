@@ -424,7 +424,7 @@ au Syntax * RainbowParenthesesLoadBraces
 " file header
 func SetTitle()
 if &filetype == 'sh'
-    call setline(1, "/#!/bin/bash")
+    call setline(1, "#!/bin/bash")
     call append(line("."), "")
     normal G
 elseif &filetype == 'python'

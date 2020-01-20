@@ -104,6 +104,9 @@ eval "$(fasd --init auto)"
 #alias z='fasd_cd -d'       # 跳转至目录
 #alias zz='fasd_cd -d -i'  # 选择并跳转至目录
 
+# gdb coredump config
+sudo sysctl -w kernel.core_pattern=core-%e.%p.%h.%t
+
 # cheat
 export CHEAT_USER_DIR=$(readlink -m ~/.bashrc|sed 's/bashrc/cheat/')
 

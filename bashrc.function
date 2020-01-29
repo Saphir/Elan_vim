@@ -238,8 +238,23 @@ function on() {
     esac
 }
 
-function httpserver() {
-    local _port=${1:-8888}
-    python3 -m http.server ${_port}
+function vi() {
+    if [ -z "$1" ] && command -v fzf &> /dev/null; then
+        vim $(fzf)
+    else
+        vim $@
+    fi
 }
-
+function ctags() {
+    local tagsfile=tags
+    local cmd=''
+    if [ -z "$1" ]; then
+        cmd="/usr/local/bin/ctags -R --exclude=xml --exclude=html"
+    else
+        cmd="/usr/local/bin/ctags $@"
+    fi
+    echo -e "$cmd"
+    eval "$cmd"
+    [ -f "$tagsfile" ] && mv "$tagsfile" ".$tagsfile"
+    return $?
+}

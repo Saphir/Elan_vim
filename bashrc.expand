@@ -17,8 +17,8 @@ LIGHTGRAY='\e[0;37m'
 WHITE='\e[1;37m'
 UNSETCOLOR='\e[m'
 
-PATH="$HOME/bin:$HOME/Programs/bin${PATH:+:${PATH}}"
-LD_LIBRARY_PATH="$HOME/python/python3.6/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+GIT_PS1_SHOWCOLORHINTS=1
+[[ $PS1 = *'>'* ]] && PROMPT_COMMAND="__git_ps1 '${PS1%>*}' '>${PS1##*>}'"
 
 if [ "$ZSH_VERSION" ]; then # zsh
     export PS1='[zsh %F{yellow}%*%F{magenta}$(git_st) %F{green}%5~%f]\n\$ '
@@ -34,6 +34,8 @@ alias rl='readlink -m'
 alias g11='g++ -std=c++11'
 alias ..='cd ..'
 alias ...='cd ../..'
+alias tt="cd ${HOME}/tmp/tt"
+
 if which htop > /dev/null 2>&1; then alias top=$(which htop);fi
 
 # public IP
@@ -93,6 +95,14 @@ export CLASSPATH=".;$JAVA_HOME/lib"
 PATH="/usr/local/go/bin${PATH:+:${PATH}}"
 PATH="$HOME/go/bin${PATH:+:${PATH}}"
 
+# fzf
+if [ ! -d ~/.fzf ]
+then
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+fi
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 # fasd https://github.com/clvv/fasd
 eval "$(fasd --init auto)"
 #alias f='fasd -f'          # 文件
@@ -110,5 +120,10 @@ sudo sysctl -w kernel.core_pattern=core-%e.%p.%h.%t
 # cheat
 export CHEAT_USER_DIR=$(readlink -m ~/.bashrc|sed 's/bashrc/cheat/')
 
-export PATH
+PATH="$HOME/bin:$HOME/.local/bin:$HOME/Programs/bin${PATH:+:${PATH}}"
+LD_LIBRARY_PATH="$HOME/python/python3.6/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+
+export LC_TIME=en_US.UTF-8
+export PATH=$(echo $PATH | sed 's/:/\n/g' | sort | uniq | tr '\n' ':')
 export LD_LIBRARY_PATH
+

@@ -1,0 +1,6 @@
+>>> playback
+cd /home/elan/qx_work/my_BMW
+vi src/com/include/Playback.hpp src/com/include/PlaybackConfig.hpp src/com/src/Playback.cpp test/TestPlayback.cpp
+g++ -g -Wno-format-security test/TestPlayback.cpp src/com/src/Playback.cpp src/com/src/SysTime.cpp src/com/src/File.cpp src/com/src/DebugMgr.cpp --std=c++11 -o /tmp/test -pthread -Isrc/com/include/
+
+

@@ -1,0 +1,16 @@
+# 8.9
+TELL_WAIT(); /* set things up for TELL_xxx & WAIT_xxx */
+if ((pid = fork()) < 0) {
+    perror("fork error");
+} else if (pid == 0) {  /* child */
+    /* child does whatever is necessary ... */
+    TELL_PARENT(getppid());
+    WAIT_PARENT();
+    /* and the child continues on its way ... */
+    exit(0);
+}
+/* parent does whatever is necessary ... */
+TELL_CHILD(pid);
+WAIT_CHILD();
+/* and the parent continues on its way ... */
+exit(0);

@@ -64,18 +64,18 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set smarttab
-autocmd FileType make set noexpandtab
-autocmd BufLeave *.{c,cpp} mark C
-autocmd BufLeave *.h       mark H
+au FileType make set noexpandtab
+au BufLeave *.{c,cpp} mark C
+au BufLeave *.h       mark H
 set shiftround
 
 "remember last update or view postion"
 " Only do this part when compiled with support for autocommands
-if has("autocmd")
+if has("au")
 " In text files, always limit the width of text to 78 characters
-autocmd BufRead *.txt set tw=78
+au BufRead *.txt set tw=78
 " When editing a file, always jump to the last cursor position
-autocmd BufReadPost *
+au BufReadPost *
 \ if line("'\"") > 0 && line ("'\"") <= line("$") |
 \ exe "normal g'\"" |
 \ endif
@@ -153,7 +153,7 @@ map <F2> :call NumberToggle()<CR>
 if empty(glob('~/Elan_vim/autoload/plug.vim'))
   silent !curl -fLo ~/Elan_vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  au VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/Elan_vim/plugged')
@@ -344,9 +344,6 @@ elseif &ttimeoutlen > 60 || &ttimeoutlen <= 0
 	set ttimeoutlen=60
 endif
 
-" c++ mappings
-au FileType c,cpp nnoremap cout istd::endl(std::cout << );<left><left>
-au FileType c,cpp inoremap <leader>cout std::endl(std::cout << );<left><left>
 
 " Golang mappings
 " https://github.com/fatih/vim-go/blob/master/doc/vim-go.txt
@@ -393,8 +390,8 @@ au Filetype python set textwidth=79
 au Filetype python set expandtab
 au Filetype python set autoindent
 au Filetype python set fileformat=unix
-autocmd Filetype python set foldmethod=indent
-autocmd Filetype python set foldlevel=99
+au Filetype python set foldmethod=indent
+au Filetype python set foldlevel=99
 
 " rainbow_parentheses
 let g:rbpt_colorpairs = [
@@ -422,28 +419,51 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 " file header
+func SetTitle_sh()
+let vfile = expand("$HOME/.vim/_template/Title.sh")
+if filereadable(vfile)
+    exec ":.-1read " vfile
+    normal G
+else
+    echo vfile " not found"
+endif
+endfunc
+
+func SetTitle_python()
+let vfile = expand("$HOME/.vim/_template/Title.py")
+if filereadable(vfile)
+    exec ":.-1read " vfile
+    normal G
+else
+    echo vfile " not found"
+endif
+endfunc
+
+func SetTitle_makefile()
+let vfile = expand("$HOME/.vim/_template/Title.makefile")
+if filereadable(vfile)
+    exec ":.-1read " vfile
+    normal gg
+else
+    echo vfile " not found"
+endif
+endfunc
+
 func SetTitle()
 if &filetype == 'sh'
-    call setline(1, "#!/bin/bash")
-    call append(line("."), "")
-    normal G
+    call SetTitle_sh()
 elseif &filetype == 'python'
-    call setline(1, "#!/usr/bin/env python")
-    call setline(2, "# -*- coding: utf-8 -*-")
-    call append(line(".")+1, "")
-    normal G
+    call SetTitle_python()
+elseif &filetype == 'makefile'
+    call SetTitle_makefile()
 endif
-
-"if expand("%:e") == 'cpp'
-"    call setline(1, "#include <cstdlib>  /* exit system malloc atoi rand */")
-"    call setline(2, "#include <iostream> /* std::cout std::endl */")
-"    call setline(3, "#include <cstdio>   /* fopen fgets printf */")
-"    call setline(4, "#include <unistd.h> /* read sleep NULL */")
-"endif
-
 endfunc
-autocmd BufNewFile *.cpp,*.php,*.pl,*.py,*.[ch],*.py,*.sh,*.java exec ":call SetTitle()"
+
+au BufNewFile Makefile set filetype=makefile
+au BufNewFile *.cpp,*.php,*.pl,*.py,*.[ch],*.sh,*.java,Makefile exec ":call SetTitle()"
 
 " ===================================================================
 "au FileType c,cpp nnoremap cout istd::endl(std::cout << );<left><left>
 au FileType c,cpp inoremap <leader>logd DEBUG::DebugMgr::Instance()->LogD("",);<left><left><left><left>
+au FileType c,cpp nnoremap cout istd::endl(std::cout << );<left><left>
+au FileType c,cpp inoremap <leader>cout std::endl(std::cout << );<left><left>

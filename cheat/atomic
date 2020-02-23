@@ -1,0 +1,5 @@
+# implememnt lock with atomic_flag
+void Lock(atomic_flag *lock) { while (lock.test_and_set()); }
+void Unlock(atomic_flag *lock) { lock.clear(); }
+
+

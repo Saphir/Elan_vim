@@ -1,8 +1,96 @@
 #include <csignal>   /* signal */
-
-void sigint_handler(int sig) {
-    if (sig == SIGINT) {
-	    // ...
-	}
+static void sigint_handler(int _signo) {
+    if (_signo == SIGINT) {
+        // ...
+    }
 }
-signal(SIGINT, sigint_handler);
+if (signal(SIGINT, sigint_handler) == SIG_ERR) {
+    perror("fail to catch SIGINT")
+}
+
+#include <vector>
+void caculate_vec_size() {
+    std::vector<T> v;
+    v.push_back(t1); v.push_back(t2);
+    std::endl(std::cout << "sizeof T: " << sizeof(T));
+    std::endl(std::cout << "bytes of vector<T>: "
+                        << v.size() * sizeof(decltype(v)::value_type));
+}
+
+#include <cstdio>
+void cstdio_example_1() {
+    char buffer[BUFSIZ];
+    FILE * pFile;
+
+    // 1. tmpfile() : Open a temporary file
+    pFile = tmpfile();
+
+    do {
+        // 2. fgets() : Get string from stream
+        if (!fgets(buffer, BUFSIZ, stdin)) break;
+        // 3. fputs() : Write string to stream
+        fputs (buffer, pFile);
+    } while (strlen(buffer) > 1);
+
+    // 4. rewind() : Set position of stream to the beginning
+    rewind(pFile);
+
+    // 5. feof() : Check end-of-file indicator
+    while (!feof(pFile)) {
+        if (fgets(buffer, BUFSIZ, pFile) == NULL) break;
+        fputs(buffer, stdout);
+    }
+
+    // 6. fclose() : Close file
+    fclose(pFile);
+}
+
+#include <array>
+std::array<std::uint32_t, 4> a1 { 0x01, 0x02, 0x03, 0x04 };
+std::array<std::uint32_t, 4> a2 = a1; // deep copy
+a1[0] = 0x09;
+for (auto & i : a1) {
+    std::endl(std::cout << i);
+}
+for (auto & i : a2) {
+    std::endl(std::cout << i);
+}
+
+#include <tuple>
+std::tuple<int, std::string> tuple_example() {
+    return std::make_tuple(1, "An example");
+}
+
+int main() {
+    int i;
+    std::string s;
+    std::tie(i, s) = tuple_example();
+    return EXIT_SUCCESS;
+}
+
+# C++11新标准学习：decltype关键字
+{ /* normal case */
+    int tempA = 2;
+    decltype(tempA) dclTempA;
+}
+{ /* func analysis */
+    /* Even though getSize() has not been defined, decltype just does analysis instead of execution. So legal. */
+    int getSize();
+    decltype(getSize()) dclTempB;
+}
+{ /* with const */
+    const double ctempA = 5.0;
+    decltype(ctempA) dclTempA = 4.1; /* Immutable */
+}
+{ /* with reference */
+    int tempA = 3;
+    int & reftempA = tempA;
+    decltype(reftempA) declTempA = tempA; /* int & */
+    decltype((tempA)) = tempA;            /* int & */
+}
+{ /* with pointer */
+    int tempA = 3;
+    int * ptrtempA = &tempA;
+    decltype(ptrtempA) declTempA = &tempA; /* int * */
+    decltype(*ptrtempA) declTempB = tempA; /* int & */
+}

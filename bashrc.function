@@ -52,7 +52,7 @@ EOF
     cmd="g++ ${files} --std=c++11 -o ${outfile} ${opts:- }$@"
     echo "[CMD] $cmd"
     eval $cmd
-    [[ $? == 0 ]] && ${outfile}
+    [[ $? == 0 ]] && time ${outfile}
 }
 function gge() {
     files=$(find * -maxdepth 0 -name "*.cxx" -o -name "*.hxx" -o -name "*.hpp" -o -name "*.cpp" |xargs)
@@ -257,4 +257,25 @@ function ctags() {
     eval "$cmd"
     [ -f "$tagsfile" ] && mv "$tagsfile" ".$tagsfile"
     return $?
+}
+
+function genMakefile() {
+cat << EOF > Makefile
+# 
+
+SRC := singal.example.cpp
+TARGET := a.out
+
+demo: $(TARGET)
+    ./$(TARGET)
+
+$(TARGET): $(SRC)
+    gcc -o $(TARGET) $(SRC)
+
+e:
+    vim $(SRC)
+
+clean:
+    rm $(TARGET)
+EOF
 }

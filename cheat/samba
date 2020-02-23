@@ -1,0 +1,5 @@
+# start smbd
+sudo service smbd restart
+# access 
+\\30.90.11.188\
+

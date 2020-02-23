@@ -1,9 +1,147 @@
-# 将GDB中需要的调试信息输出到文件
-(gdb) set logging file <文件名>
-(gdb) set logging on
-(gdb) thread apply all bt
-  # (gdb) qbtall
-(gdb) set logging off
-(gdb) quit
-# Disable pagination
-set pagination off
+`(gdb) set logging file <log>`
+`(gdb) set logging on`
+`(gdb) thread apply all bt`
+`(gdb) set pagination off`
+
+1. `ulimit -c unlimited; sysctl -w kernel.core_pattern=core-%e.%p.%h.%t;`
+2. Use "-g" to compile
+
+    `$ gcc -g main.c -o main`
+
+3. Start the debugger
+
+    `$ gdb <program> [core dump]`
+    `$ gdb -x /path/to/gdb_script.gdb <program>` # 启动后运行脚本gdb_script.gdb
+    `$ gdb -x /path/to/gdb_script.gdb -batch <program>` # 启动后运行脚本gdb_script.gdb，然后退出gdb，不交互
+    `$ gdb -p pid`#附在某个进程上运行
+
+4. Start debug step
+
+    `(gdb) start`
+    `(gdb) run`
+    `(gdb) source <script.gdb>`
+
+5. Involve args 指定参数运行
+
+    `(gdb) set args 111 222`
+    `(gdb) r arg1 arg2 arg3`
+    `$ gdb --args <program> arg1 arg2`
+
+6. Print out source code: list | l
+
+    `(gdb) list <func name>`
+    `(gdb) list <line>`
+
+7. Run the current line, stepping over any invocations: next | n
+
+    `(gdb) n (next)`
+
+8. Run the current line, stepping into any invocations: step | s
+
+    `(gdb) s (step)`
+
+9. Check local variables: i | info
+
+    `(gdb) i locals`
+
+10. Switch stack frame
+
+    `(gdb) frame 1`
+
+11. Execute to the end of the function
+
+    `(gdb) finish`
+
+12. Print variables
+
+    `(gdb) print i`
+    `(gdb) print /a argv[i]  # address`
+    `(gdb) print /s argv[i]  # string`
+    `(gdb) print /c argv[i]  # char`
+    `(gdb) print /a argv[i]  # address`
+    `(gdb) print /t argv[i]  # binary`
+    `(gdb) print *argv@argc`
+    `(gdb) print {type} variable  # 以type来解释variable`
+    `(gdb) print *argv@argc`
+
+13. Print settings
+
+    `(gdb) set print pretty off`
+
+14. display
+
+    Like "print" but print the information after each stepping instruction)
+
+15. print binary
+
+    `(gdb) x/7b input`  // x命令打印指定存储单元的内容。7b是打印格式，b表示每个字节一组，7表示打印7组
+
+16. Set Breakpoint: breakpoint | b
+    1. set
+    `(gdb) b <func name>`
+    `(gdb) b [file]:<line>`
+    `(gdb) b 9 if sum != 0`
+    2. check
+    `(gdb) i breakpoint`
+    3. delete
+    `(gdb) delete breakpoints 2`
+    4. enable / disable
+    `(gdb) enable breakpoints 3`
+    `(gdb) disable breakpoints 3`
+17. Continue
+
+    `(gdb) c`
+
+18. watchpoint (like breakpoint)
+
+    `(gdb) watch input[5]`
+
+19. Specifying Source Directories
+
+    `(gdb) set directories <path>`
+
+20. ptype可以显示对象的类型
+
+    `(gdb) ptype ival
+    type = int`
+
+21. 设置源码路径
+
+    `(gdb) dir /path/to/your/sources`
+
+22. 查看线程信息
+
+    `(gdb) info threads`
+
+23. 执行gdb脚本
+
+    `$ gdb -x /path/to/gdb_script.gdb <program>`
+    `(gdb) source /path/to/breakpoints.txt`
+
+24. 自定义命令
+
+        (gdb) define hello
+        (gdb) print "welcome"
+        (gdb) print "hello $arg0"
+        (gdb) end
+        然后如此调用
+
+        (gdb) hello world
+        即可输出
+
+        (gdb) $1 = "welcome"
+        (gdb) $2 = "hello world"
+
+        define plist
+               set $list=$arg0
+               while($list)
+                      p *$list
+                      set $list=$list->next
+               end
+        end
+
+25. 查看汇编
+`(gdb) disass`
+26. 不加载~/.gdbinit
+`$ gdb -n`
+

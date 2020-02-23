@@ -1,0 +1,2 @@
+cd /home/elan/qx_work/my_BMW/test
+g++ TestPlayback.cpp --std=c++11 -o test -pthread -I../src/com/include/

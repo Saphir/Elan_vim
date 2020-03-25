@@ -102,6 +102,8 @@ map <leader>p :set paste!<CR>
 
 imap <leader>i #include <><LEFT>
 
+nnoremap hiw diw<LEFT>"0p
+
 noremap <S-tab> :bp<CR>
 noremap <tab> :bn<CR>
 

@@ -9,7 +9,7 @@ demo: $(TARGET)
 	./$(TARGET)
 
 e:
-	vim $(SRC)
+	vim $(SRC) $(DEPENDS)
 
 clean:
 	rm $(TARGET)

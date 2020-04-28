@@ -354,6 +354,7 @@ au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 
 map <F3> :GitGutterToggle<CR>
+let g:gitgutter_enabled=0
 
 map <F4> :NERDTreeMirror<CR>
 map <F4> :NERDTreeToggle<CR>
@@ -469,3 +470,4 @@ au BufNewFile *.cpp,*.php,*.pl,*.py,*.[ch],*.sh,*.java,Makefile exec ":call SetT
 au FileType c,cpp inoremap <leader>logd DEBUG::DebugMgr::Instance()->LogD("",);<left><left><left><left>
 au FileType c,cpp nnoremap cout istd::endl(std::cout << );<left><left>
 au FileType c,cpp inoremap <leader>cout std::endl(std::cout << );<left><left>
+

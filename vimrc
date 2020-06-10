@@ -17,7 +17,7 @@ filetype plugin indent on
 "set cursorline
 " hi Cursor ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
 hi CursorColumn ctermfg=None ctermbg=237 cterm=None guifg=white guibg=#3c3d37 gui=None
-" hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
+" hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE uuifg=NONE guibg=#3c3d37 gui=NONE
 
 set nobackup
 set noswapfile
@@ -102,7 +102,7 @@ map <leader>p :set paste!<CR>
 
 imap <leader>i #include <><LEFT>
 
-nnoremap hiw diw<LEFT>"0p
+nnoremap riw diw<LEFT>"0p
 
 noremap <S-tab> :bp<CR>
 noremap <tab> :bn<CR>
@@ -147,6 +147,28 @@ function! NumberToggle()
 endfunc
 "nnoremap <F2> :call NumberToggle()<CR>
 map <F2> :call NumberToggle()<CR>
+
+function! StdIntToggle1()
+    exec ":% s/\\<INT8\\>/std::int8_t/g"
+    exec ":% s/\\<INT16\\>/std::int16_t/g"
+    exec ":% s/\\<INT32\\>/std::int32_t/g"
+    exec ":% s/\\<INT64\\>/std::int64_t/g"
+    exec ":% s/\\<UINT8\\>/std::uint8_t/g"
+    exec ":% s/\\<UINT16\\>/std::uint16_t/g"
+    exec ":% s/\\<UINT32\\>/std::uint32_t/g"
+    exec ":% s/\\<UINT64\\>/std::uint64_t/g"
+endfunc
+
+function! StdIntToggle2()
+    exec ":%s/\\<std::int8_t\\>/INT8/g"
+    exec ":%s/\\<std::int16_t\\>/INT16/g"
+    exec ":%s/\\<std::int32_t\\>/INT32/g"
+    exec ":%s/\\<std::int64_t\\>/INT64/g"
+    exec ":%s/\\<std::uint8_t\\>/UINT8/g"
+    exec ":%s/\\<std::uint16_t\\>/UINT16/g"
+    exec ":%s/\\<std::uint32_t\\>/UINT32/g"
+    exec ":%s/\\<std::uint64_t\\>/UINT64/g"
+endfunc
 
 " ======================================================================
 " https://github.com/junegunn/vim-plug

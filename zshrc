@@ -5,6 +5,13 @@
 #  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 #fi
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+#if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+#fi
+
 # Antigen: https://github.com/zsh-users/antigen
 ANTIGEN="$HOME/Elan_vim/antigen.zsh"
 
@@ -60,20 +67,15 @@ antigen theme romkatv/powerlevel10k
 
 antigen apply
 
-############################################################### Elan
-test -s ~/.alias && . ~/.alias || true
-
-real_zshrc=$(readlink -m ~/.zshrc)
-[[ -e ${real_zshrc%/*}/zshrc.function ]] && source ${real_zshrc%/*}/zshrc.function
+########## expand settings ##########
+real_zshrc=$(greadlink -m ~/.zshrc)
 [[ -e ${real_zshrc%/*}/zshrc.expand ]] && source ${real_zshrc%/*}/zshrc.expand
+[[ -e ${real_zshrc%/*}/zshrc.function ]] && source ${real_zshrc%/*}/zshrc.function
 
-[ ! -d ~/.fzf ] && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     tmux attach -t 0 || tmux new -s 0
 fi
-
-# To customize prompt, run `p10k configure` or edit ~.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

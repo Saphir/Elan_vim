@@ -1,3 +1,4 @@
+# zshrc.expand
 # Colors
 BLACK='\e[0;30m'
 DARKGRAY='\e[1;30m'
@@ -21,72 +22,16 @@ export HISTTIMEFORMAT='%F %T '
 export HISTSIZE=999
 export HISTIGNORE='pwd:ls'
 
+alias readlink='greadlink'
 alias rl='readlink -m'
 alias g11='g++ -std=c++11'
 alias g14='g++ -std=c++11'
 alias ..='cd ..'
 alias ...='cd ../..'
-alias tt="[ -d ${HOME}/tmp/tt ] && mkdir -p ${HOME}/tmp/tt; cd ${HOME}/tmp/tt"
+alias tt="[ ! -d ${HOME}/tmp/tt ] && mkdir -p ${HOME}/tmp/tt; cd ${HOME}/tmp/tt"
 alias .gdb='gdb -x gdbinit'
 
 if which htop > /dev/null 2>&1; then alias top=$(which htop);fi
-
-# public IP
-defaultgwdev=$(ip route | grep default | awk '{print $5}')
-localnet=$(ip addr show dev $defaultgwdev | grep 'inet ' | awk '{print $2}')
-localip=$(echo $localnet | cut -d '/' -f 1)
-localnm=$(echo $localnet | cut -d '/' -f 2)
-localgw=$(ip route | grep default | awk '{print $3}')
-export _LOCALDEV=$defaultgwdev
-export _LOCALIP=$localip
-export _LOCALNM=$localnm
-export _LOCALGW=$localgw
-
-# virtualenv
-#export WORKON_HOME=$HOME/venv
-#alias venv='. /usr/bin/virtualenvwrapper.sh'
-#. /usr/bin/virtualenvwrapper.sh
-
-# python
-#PATH="$HOME/python/python3.5/bin${PATH:+:${PATH}}"
-#PATH="$HOME/python/python3.6/bin${PATH:+:${PATH}}"
-#PATH="$HOME/python/python3.7/bin${PATH:+:${PATH}}"
-
-# venv
-# pip install virtualenvwrapper
-export WORKON_HOME="$HOME/.virtualenvs"
-#/home/c4dev/python/python3.6/bin/pip
-#/home/c4dev/python/python3.6/bin/virtualenvwrapper.sh
-#/usr/bin/python
-#pip_path=$(dirname $(which pip))
-#if [ -n "$pip_path" ]
-#then
-#    if [[ $(dirname $pip_path) =~ /usr.* ]]
-#    then
-#        virtualenvwrapper='/usr/local/bin/virtualenvwrapper.sh'
-#    else
-#        virtualenvwrapper="$pip_path/virtualenvwrapper.sh"
-#        export VIRTUALENVWRAPPER_PYTHON="$(find $pip_path -regex .*/python[0-9] -executable)"
-#    fi
-#    if [ -n "$virtualenvwrapper" ]
-#    then
-#        source "$virtualenvwrapper"
-#    fi
-#fi
-# mkvirtualenv venv
-
-# perl
-#PATH="$HOME/ActivePerl-5.24/site/bin:/home/c4dev/ActivePerl-5.24/bin${PATH:+:${PATH}}"
-#MANPATH="$HOME/ActivePerl-5.24/site/man:/home/c4dev/ActivePerl-5.24/man${MANPATH:+:${MANPATH}}"
-#PERLLIB="$HOME/ActivePerl-5.24/site/lib:/home/c4dev/ActivePerl-5.24/lib${PERLLIB:+:${PERLLIB}}"
-
-# java
-#export CLASSPATH=".;$JAVA_HOME/lib"
-#export MANPATH
-
-# go
-PATH="/usr/local/go/bin${PATH:+:${PATH}}"
-PATH="$HOME/go/bin${PATH:+:${PATH}}"
 
 # fzf
 if [ ! -d ~/.fzf ]
@@ -98,25 +43,9 @@ fi
 
 # fasd https://github.com/clvv/fasd
 eval "$(fasd --init auto)"
-#alias f='fasd -f'          # 文件
-#alias d='fasd -d'        # 目录
-#alias a='fasd -a'        # 任意
-#alias s='fasd -si'       # 显示并选择
-#alias sd='fasd -sid'        # 选择目录
-#alias sf='fasd -sif'          # 选择文件
-#alias z='fasd_cd -d'       # 跳转至目录
-#alias zz='fasd_cd -d -i'  # 选择并跳转至目录
-
-# gdb coredump config
-#sudo sysctl -w kernel.core_pattern=core-%e.%p.%h.%t
-
-# cheat
-export CHEAT_USER_DIR=$(readlink -m ~/.zshrc|sed 's/zshrc/cheat/')
 
 PATH="$HOME/bin:$HOME/.local/bin:$HOME/Programs/bin${PATH:+:${PATH}}"
 LD_LIBRARY_PATH="$HOME/python/python3.6/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
 export LC_TIME=en_US.UTF-8
-export PATH=$(echo $PATH | sed 's/:/\n/g' | sort | uniq | tr '\n' ':')
-export LD_LIBRARY_PATH
 

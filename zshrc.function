@@ -1,14 +1,3 @@
-#!/bin/bash
-
-function sss() # screen
-{
-    if [[ $# -eq 1 && ! $1 =~ ^-.* ]]
-    then
-        /usr/local/bin/screen-4.6.2 -S $1 -t $1
-    else
-        /usr/local/bin/screen-4.6.2 $@
-    fi
-}
 function _ps()
 {
     if [[ $# -eq 0 ]]
@@ -19,17 +8,8 @@ function _ps()
     fi
 }
 alias ps='_ps'
+
 function ggg() {
-    if [ "$1" == "-h" -o "$1" == "--help" ]
-    then
-        cat << EOF
-Usage:
-    ${FUNCNAME[0]} c [-D NDEBUG] -- compile *.cxx *.hxx in current path
-    ${FUNCNAME[0]} e -- vi *.cxx *.hxx in current path
-EOF
-    return 1
-    fi
-    #files=$(find * -maxdepth 0 -name "*.hxx" -o -name "*.cxx" -o -name "*.hpp" -o -name "*.cpp" |xargs)
     files=$(find * -maxdepth 0 -name "*.cxx" -o -name "*.cpp" |xargs)
     unset opts
     for lib in thread atomic; do
@@ -43,14 +23,6 @@ EOF
     eval $cmd
     [[ $? == 0 ]] && time ${outfile}
 }
-function gge() {
-    files=$(find * -maxdepth 0 -name "*.cxx" -o -name "*.hxx" -o -name "*.hpp" -o -name "*.cpp" |xargs)
-    vim $files
-}
-#function _mkdir_cd() {
-#    mkdir $@ && cd $1
-#}
-#alias mkdir='_mkdir_cd'
 function vi() {
     if [ -z "$1" ] && command -v fzf &> /dev/null; then
         vim $(fzf)
@@ -58,58 +30,6 @@ function vi() {
         vim $@
     fi
 }
-function ctouch()
-{
-    dd if=/dev/urandom of=$1 bs=1M count=1 status=none
-}
-function getLocalIP()
-{
-    defaultgwdev=$(ip route | grep default | awk '{print $5}')
-    localnet=$(ip addr show dev $defaultgwdev | grep 'inet ' | awk '{print $2}')
-    localip=$(echo $localnet | cut -d '/' -f 1)
-    export _LOCALIP=$localip
-    echo $localip
-}
-function httpServer()
-{
-cmd=$1
-port=8050
-while :
-do
-    case "$cmd" in
-    start)
-        if sudo lsof -i :${port} | grep ${port}; then
-            return 0;
-        fi
-        echo "Starting python http server on :${port} ..."
-        python_http_server_links="${HOME}/HTTP.Server"
-        [ ! -e "${python_http_server_links}" ] && mkdir -p ${python_http_server_links}
-        (cd ${python_http_server_links};nohup python3 -m http.server ${port} > /tmp/python.http.server.log 2>&1 &)
-        return 0
-        ;;
-    stop)
-        echo "Stoping python http server ... "
-        sudo lsof -i :${port} | grep ${port}
-        if [ "$?" -ne 0 ]; then
-            echo "python http service not running ..."
-        else
-            server_pid=$(sudo lsof -i :${port} | grep ${port} | awk '{print $2}')
-            [ -n "$server_pid" ] && sudo kill -9 ${server_pid}
-        fi
-        return 0
-        ;;
-    status)
-        sudo lsof -i :${port} | grep ${port}
-        [ "$?" -ne 0 ] && echo "python http service not running ..."
-        return 0
-        ;;
-    *)
-        read -p "[start|stop|status]" cmd
-        ;;
-    esac
-done
-}
-
 function genMakefile() {
 cat << EOF > Makefile
 # 

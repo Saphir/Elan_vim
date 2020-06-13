@@ -68,10 +68,10 @@ real_zshrc=$(readlink -m ~/.zshrc)
 [ ! -d ~/.fzf ] && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-#    tmux attach -t 0 || tmux new -s 0
-#fi
-#
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+    tmux attach -t 0 || tmux new -s 0
+fi
+
 antigen apply
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

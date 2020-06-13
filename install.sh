@@ -16,13 +16,12 @@ then
     rm ~/.bashrc
 fi
 
-for i in vim vimrc bashrc gitconfig zshrc screenrc tmux.conf
+for i in vimrc gitconfig zshrc tmux.conf
 do
-    if [[ ${i} == vim ]]
-    then
-        ln -s $(readlink -m .) ~/.${i} || die "Fail to create symbolic link ~/.${i}"
-    else
-        ln -s $(readlink -m ./${i}) ~/.${i} || die "Fail to create symbolic link ~/.${i}"
-    fi
+    ln -s $(readlink -m ./${i}) ~/.${i} || die "Fail to create symbolic link ~/.${i}"
     echo "~/.${i} Done"
 done
+
+ln -s $(readlink -m .) ~/.vim || die "Fail to create symbolic link ~/.vim"
+
+

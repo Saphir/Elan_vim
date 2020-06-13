@@ -17,24 +17,16 @@ LIGHTGRAY='\e[0;37m'
 WHITE='\e[1;37m'
 UNSETCOLOR='\e[m'
 
-GIT_PS1_SHOWCOLORHINTS=1
-[[ $PS1 = *'>'* ]] && PROMPT_COMMAND="__git_ps1 '${PS1%>*}' '>${PS1##*>}'"
-
-if [ "$ZSH_VERSION" ]; then # zsh
-    export PS1='[zsh %F{yellow}%*%F{magenta}$(git_st) %F{green}%5~%f]\n\$ '
-elif [ "$BASH_VERSION" ]; then # bash
-    #export PS1="[$YELLOW\t$UNSETCOLOR $LIGHTBLUE"'$(TZ=Asia/Shanghai date +%T)'"$LIGHTPURPLE$UNSETCOLOR \W]\n\$ "
-    export PS1="[\h $YELLOW\t$UNSETCOLOR$LIGHTPURPLE$UNSETCOLOR \W]\n\$ "
-fi
 export HISTTIMEFORMAT='%F %T '
 export HISTSIZE=999
 export HISTIGNORE='pwd:ls'
 
 alias rl='readlink -m'
 alias g11='g++ -std=c++11'
+alias g14='g++ -std=c++11'
 alias ..='cd ..'
 alias ...='cd ../..'
-alias tt="cd ${HOME}/tmp/tt"
+alias tt="[ -d ${HOME}/tmp/tt ] && mkdir -p ${HOME}/tmp/tt; cd ${HOME}/tmp/tt"
 alias .gdb='gdb -x gdbinit'
 
 if which htop > /dev/null 2>&1; then alias top=$(which htop);fi
@@ -56,9 +48,9 @@ export _LOCALGW=$localgw
 #. /usr/bin/virtualenvwrapper.sh
 
 # python
-PATH="$HOME/python/python3.5/bin${PATH:+:${PATH}}"
-PATH="$HOME/python/python3.6/bin${PATH:+:${PATH}}"
-PATH="$HOME/python/python3.7/bin${PATH:+:${PATH}}"
+#PATH="$HOME/python/python3.5/bin${PATH:+:${PATH}}"
+#PATH="$HOME/python/python3.6/bin${PATH:+:${PATH}}"
+#PATH="$HOME/python/python3.7/bin${PATH:+:${PATH}}"
 
 # venv
 # pip install virtualenvwrapper
@@ -89,7 +81,7 @@ export WORKON_HOME="$HOME/.virtualenvs"
 #PERLLIB="$HOME/ActivePerl-5.24/site/lib:/home/c4dev/ActivePerl-5.24/lib${PERLLIB:+:${PERLLIB}}"
 
 # java
-export CLASSPATH=".;$JAVA_HOME/lib"
+#export CLASSPATH=".;$JAVA_HOME/lib"
 #export MANPATH
 
 # go
@@ -102,7 +94,7 @@ then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
 fi
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # fasd https://github.com/clvv/fasd
 eval "$(fasd --init auto)"
@@ -116,10 +108,10 @@ eval "$(fasd --init auto)"
 #alias zz='fasd_cd -d -i'  # 选择并跳转至目录
 
 # gdb coredump config
-sudo sysctl -w kernel.core_pattern=core-%e.%p.%h.%t
+#sudo sysctl -w kernel.core_pattern=core-%e.%p.%h.%t
 
 # cheat
-export CHEAT_USER_DIR=$(readlink -m ~/.bashrc|sed 's/bashrc/cheat/')
+export CHEAT_USER_DIR=$(readlink -m ~/.zshrc|sed 's/zshrc/cheat/')
 
 PATH="$HOME/bin:$HOME/.local/bin:$HOME/Programs/bin${PATH:+:${PATH}}"
 LD_LIBRARY_PATH="$HOME/python/python3.6/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"

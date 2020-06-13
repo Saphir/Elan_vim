@@ -16,7 +16,7 @@ then
     rm ~/.bashrc
 fi
 
-for i in vimrc gitconfig zshrc tmux.conf
+for i in vimrc gitconfig zshrc tmux.conf p10k.zsh
 do
     ln -s $(readlink -m ./${i}) ~/.${i} || die "Fail to create symbolic link ~/.${i}"
     echo "~/.${i} Done"

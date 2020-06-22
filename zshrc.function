@@ -20,15 +20,6 @@ function _ps()
 }
 alias ps='_ps'
 function ggg() {
-    if [ "$1" == "-h" -o "$1" == "--help" ]
-    then
-        cat << EOF
-Usage:
-    ${FUNCNAME[0]} c [-D NDEBUG] -- compile *.cxx *.hxx in current path
-    ${FUNCNAME[0]} e -- vi *.cxx *.hxx in current path
-EOF
-    return 1
-    fi
     #files=$(find * -maxdepth 0 -name "*.hxx" -o -name "*.cxx" -o -name "*.hpp" -o -name "*.cpp" |xargs)
     files=$(find * -maxdepth 0 -name "*.cxx" -o -name "*.cpp" |xargs)
     unset opts
@@ -57,6 +48,19 @@ function vi() {
     else
         vim $@
     fi
+}
+function ctags() {
+    local tagsfile=tags
+    local cmd=''
+    if [ -z "$1" ]; then
+        cmd="/usr/local/bin/ctags -R --exclude=xml --exclude=html"
+    else
+        cmd="/usr/local/bin/ctags $@"
+    fi
+    echo -e "$cmd"
+    eval "$cmd"
+    [ -f "$tagsfile" ] && mv "$tagsfile" ".$tagsfile"
+    return $?
 }
 function ctouch()
 {

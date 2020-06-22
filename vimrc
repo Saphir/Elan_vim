@@ -185,7 +185,7 @@ Plug 'tpope/vim-sensible'
 "Plug 'ludovicchabant/vim-gutentags' "自动更新tags文件
 "Plug 'w0rp/ale' "编辑文字的同时就帮你把潜在错误标注出来
 "Plug 'mhinz/vim-signify' "show differences with git, svn ...
-"Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 "Plug 'Yggdroot/LeaderF'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'

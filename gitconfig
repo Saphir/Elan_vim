@@ -61,7 +61,7 @@
 [difftool]
     prompt = false
 [difftool "icdiff"]
-    cmd = $HOME/.local/bin/icdiff --line-numbers $LOCAL $REMOTE
+    cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
 [push]
 	default = current
 [credential]

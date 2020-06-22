@@ -63,6 +63,8 @@ antigen apply
 ############################################################### Elan
 test -s ~/.alias && . ~/.alias || true
 
+[[ -e "~/.zshrc.local" ]] && source ~/.zshrc.local
+
 real_zshrc=$(readlink -m ~/.zshrc)
 [[ -e ${real_zshrc%/*}/zshrc.function ]] && source ${real_zshrc%/*}/zshrc.function
 [[ -e ${real_zshrc%/*}/zshrc.expand ]] && source ${real_zshrc%/*}/zshrc.expand

@@ -28,6 +28,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias tt="[ -d ${HOME}/tmp/tt ] && mkdir -p ${HOME}/tmp/tt; cd ${HOME}/tmp/tt"
 alias .gdb='gdb -x gdbinit'
+alias tmux='if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then tmux attach -t 0 || tmux new -s 0; else which tmux; fi'
 
 if which htop > /dev/null 2>&1; then alias top=$(which htop);fi
 

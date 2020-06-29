@@ -361,6 +361,7 @@ set statusline+=\ %l:%c
 set statusline+=\ (L:%L)
 set statusline+=\ %p%%
 set statusline+=\ 
+set encoding=utf-8
 
 if $TMUX != ''
 	set ttimeoutlen=20

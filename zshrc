@@ -63,7 +63,7 @@ antigen apply
 ############################################################### Elan
 test -s ~/.alias && . ~/.alias || true
 
-[[ -e "~/.zshrc.local" ]] && source ~/.zshrc.local
+[[ -e ~/.zshrc.local ]] && source ~/.zshrc.local
 
 real_zshrc=$(readlink -m ~/.zshrc)
 [[ -e ${real_zshrc%/*}/zshrc.function ]] && source ${real_zshrc%/*}/zshrc.function
@@ -71,10 +71,6 @@ real_zshrc=$(readlink -m ~/.zshrc)
 
 [ ! -d ~/.fzf ] && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux attach -t 0 || tmux new -s 0
-fi
 
 # To customize prompt, run `p10k configure` or edit ~.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

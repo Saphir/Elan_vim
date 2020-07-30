@@ -28,7 +28,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias tt="[ -d ${HOME}/tmp/tt ] && mkdir -p ${HOME}/tmp/tt; cd ${HOME}/tmp/tt"
 alias .gdb='gdb -x gdbinit'
-alias tmux='if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then tmux attach -t 0 || tmux new -s 0; else which tmux; fi'
+alias tmux='if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then tmux attach -t $(whoami) || tmux new -s $(whoami); else which tmux; fi'
 
 if which htop > /dev/null 2>&1; then alias top=$(which htop);fi
 
@@ -42,6 +42,10 @@ export _LOCALDEV=$defaultgwdev
 export _LOCALIP=$localip
 export _LOCALNM=$localnm
 export _LOCALGW=$localgw
+if command -v bat > /dev/null
+then
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
 
 # virtualenv
 #export WORKON_HOME=$HOME/venv

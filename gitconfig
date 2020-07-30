@@ -1,13 +1,10 @@
-[user]
-	name = haowen.zheng
-	email = haowen.zheng@wz-inc.com
 [merge]
     tool = icdiff
     #ff = only
     conflictstyle = diff3
 [core]
     editor = vim
-    pager = less
+	pager = less -F -X
 [color]
     ui = true
 [alias]
@@ -61,8 +58,11 @@
 [difftool]
     prompt = false
 [difftool "icdiff"]
-    cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
+    cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE | /usr/bin/bat --style=numbers,changes
 [push]
 	default = current
 [credential]
-	helper = cache --timeout=86400
+	helper = store
+[user]
+	email = haowen.zheng@wz-inc.com
+	name = Elan

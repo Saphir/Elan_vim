@@ -60,6 +60,11 @@ antigen theme romkatv/powerlevel10k
 
 antigen apply
 
+# Bind keys
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey  "^[[3~"  delete-char
+
 ############################################################### Elan
 test -s ~/.alias && . ~/.alias || true
 

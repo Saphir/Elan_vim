@@ -52,7 +52,7 @@ set ignorecase
 set smartcase
 
 set foldenable
-set foldmethod=indent
+set foldmethod=manual
 set foldlevel=99
 
 set smartindent
@@ -84,6 +84,8 @@ endif
 let mapleader = ';'
 let g:mapleader = ';'
 
+nmap <Leader>y :!echo --==<C-R><C-w>==-- ;ici <C-R><C-W><CR>
+nmap <leader>z zfa{
 nmap <leader>q :bd<CR>
 
 map <leader>qq :qa!<CR>

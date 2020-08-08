@@ -150,6 +150,9 @@ endfunc
 "nnoremap <F2> :call NumberToggle()<CR>
 map <F2> :call NumberToggle()<CR>
 
+nnoremap <F12> :setlocal spell! spell?<CR>
+inoremap <F12> <ESC>:setlocal spell! spell?<CR>
+
 function! StdIntToggle1()
     exec ":% s/\\<INT8\\>/std::int8_t/g"
     exec ":% s/\\<INT16\\>/std::int16_t/g"

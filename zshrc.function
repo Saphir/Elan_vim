@@ -32,7 +32,7 @@ function ggg() {
         fi
     done
     outfile="/tmp/a.out.$$"
-    cmd="g++ ${@:- }${files} --std=c++14 -o ${outfile} ${opts:- }"
+    cmd="g++ ${files} --std=c++14 -o ${outfile} ${@:+${@} }${opts}"
     echo "[CMD] $cmd"
     eval $cmd
     [[ $? == 0 ]] && time ${outfile}

@@ -66,3 +66,5 @@
 [user]
 	email = haowen.zheng@wz-inc.com
 	name = Elan
+[http]
+       postBuffer = 524288000

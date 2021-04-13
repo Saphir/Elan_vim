@@ -68,6 +68,7 @@ antigen theme romkatv/powerlevel10k
 antigen apply
 
 ########## expand settings ##########
+[[ -e ~/.zshrc.local ]] && source ~/.zshrc.local
 real_zshrc=$(greadlink -m ~/.zshrc)
 [[ -e ${real_zshrc%/*}/zshrc.expand ]] && source ${real_zshrc%/*}/zshrc.expand
 [[ -e ${real_zshrc%/*}/zshrc.function ]] && source ${real_zshrc%/*}/zshrc.function
@@ -78,3 +79,6 @@ real_zshrc=$(greadlink -m ~/.zshrc)
 #if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
 #    tmux attach -t 0 || tmux new -s 0
 #fi
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

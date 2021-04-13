@@ -107,12 +107,6 @@ nnoremap riw diw<LEFT>"0p
 noremap <S-tab> :bp<CR>
 noremap <tab> :bn<CR>
 
-func! CleanBlankLine()
-    exec ':% s/\s\+$//'
-    exec ':noh'
-endfunc
-map <leader>c :call CleanBlankLine()<CR>
-
 func! CppHeaderLib()
     let vfile = expand("$HOME/.vim/_template/cppHeaderLib")
     if filereadable(vfile) " check if cpp template exists
@@ -185,7 +179,7 @@ Plug 'tpope/vim-sensible'
 "Plug 'ludovicchabant/vim-gutentags' "自动更新tags文件
 "Plug 'w0rp/ale' "编辑文字的同时就帮你把潜在错误标注出来
 "Plug 'mhinz/vim-signify' "show differences with git, svn ...
-"Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 "Plug 'Yggdroot/LeaderF'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -204,7 +198,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'kien/rainbow_parentheses.vim' " 不同颜色区分括号匹配
 Plug 'scrooloose/nerdtree' " 文件树
 Plug 'google/vim-maktaba'
-Plug 'bazelbuild/vim-bazel'
+Plug 'rhysd/vim-clang-format'
 call plug#end()
 
 " ======================================================================
@@ -212,6 +206,17 @@ call plug#end()
 set tags=./.tags;,.tags
 let g:ctags_path='.tags;,tags'
 let g:ctags_statusline=1
+
+" ======================================================================
+" clang-format
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" if you install vim-operator-user
+" autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+" Toggle auto formatting:
+nmap <Leader>c :ClangFormatAutoToggle<CR>
+autocmd FileType c,cpp,objc ClangFormatAutoEnable
 
 " ======================================================================
 " ludovicchabant/vim-gutentags
@@ -360,7 +365,10 @@ set statusline +=\ %{strftime(\"[%d/%m/%y\ %T]\",getftime(expand(\"%:p\")))}
 set statusline+=\ %l:%c
 set statusline+=\ (L:%L)
 set statusline+=\ %p%%
-set statusline+=\ 
+set statusline+=\
+" for macVim
+set clipboard=unnamed
+set guifont=Bitstream\ Vera\ Sans\ Mono:h15
 
 if $TMUX != ''
 	set ttimeoutlen=20
@@ -491,5 +499,5 @@ au BufNewFile *.cpp,*.php,*.pl,*.py,*.[ch],*.sh,*.java,Makefile exec ":call SetT
 "au FileType c,cpp nnoremap cout istd::endl(std::cout << );<left><left>
 au FileType c,cpp inoremap <leader>logd DEBUG::DebugMgr::Instance()->LogD("",);<left><left><left><left>
 au FileType c,cpp nnoremap cout istd::endl(std::cout << );<left><left>
-au FileType c,cpp inoremap <leader>cout std::endl(std::cout << );<left><left>
+au FileType c,cpp inoremap <leader>cout std::cout <<  << std::endl;<ESC>13hi
 

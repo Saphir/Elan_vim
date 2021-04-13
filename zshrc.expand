@@ -23,13 +23,14 @@ export HISTSIZE=999
 export HISTIGNORE='pwd:ls'
 
 alias readlink='greadlink'
-alias rl='readlink -m'
+alias rl='greadlink -m'
 alias g11='g++ -std=c++11'
 alias g14='g++ -std=c++11'
 alias ..='cd ..'
 alias ...='cd ../..'
-alias tt="[ ! -d ${HOME}/tmp/tt ] && mkdir -p ${HOME}/tmp/tt; cd ${HOME}/tmp/tt"
+alias tt="[ ! -d ${HOME}/Workspace/tmp/tt ] && mkdir -p ${HOME}/Workspace/tmp/tt; cd ${HOME}/Workspace/tmp/tt"
 alias .gdb='gdb -x gdbinit'
+alias ssh_txvm='sshpass -p ${TXVM_PASSWD:-1qaz@WSX} ssh "elan@${TXVM_IP:-81.68.247.142}"'
 
 if which htop > /dev/null 2>&1; then alias top=$(which htop);fi
 
